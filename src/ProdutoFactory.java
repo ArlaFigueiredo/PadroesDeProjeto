@@ -19,6 +19,7 @@ public abstract class ProdutoFactory {
 		return produto;
 	}
 	
+	
 	public ProdutoIF getProduto() {
 		ProdutoIF produto = this.createProduto();
 		produto.setProduto(this.getCodigo(),this.getNome());
