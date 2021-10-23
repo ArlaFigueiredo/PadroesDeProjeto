@@ -39,5 +39,11 @@ public class Disciplina implements ProdutoIF{
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
+	@Override
+	public void setProduto(String codigo, String nome) {
+		this.setCodigo(codigo);
+		this.setNome(nome);
+	}
 	
 }

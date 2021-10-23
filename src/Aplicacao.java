@@ -16,7 +16,7 @@ public class Aplicacao {
 	}
 	
 	public static void main(String[] args) throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		(new Aplicacao()).produtoFactory.speak();
+		Aplicacao app = new Aplicacao();
 	}
 
 }

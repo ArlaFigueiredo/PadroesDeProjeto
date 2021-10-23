@@ -4,22 +4,29 @@ public abstract class ProdutoFactory {
 	protected String codigo;
 	protected String nome;
 	
-	public ProdutoFactory() {
-		super();
-	}
+	public ProdutoFactory() {}
 
 	public ProdutoFactory(String codigo, String nome) {
-		super();
-		this.codigo = codigo;
-		this.nome = nome;
+		this.setCodigo(codigo);
+		this.setNome(nome);
 	}
-	
-	public abstract void speak();
 	
 	public abstract ProdutoIF createProduto();
 	
+	public ProdutoIF getProduto(String codigo, String nome) {
+		ProdutoIF produto = this.createProduto();
+		produto.setProduto(codigo, nome);
+		return produto;
+	}
+	
+	public ProdutoIF getProduto() {
+		ProdutoIF produto = this.createProduto();
+		produto.setProduto(this.getCodigo(),this.getNome());
+		return produto;
+	}
+	
 	public String getCodigo() {
-		return codigo;
+		return this.codigo;
 	}
 
 	public void setCodigo(String codigo) {
@@ -27,7 +34,7 @@ public abstract class ProdutoFactory {
 	}
 	
 	public String getNome() {
-		return nome;
+		return this.nome;
 	}
 
 	public void setNome(String nome) {
