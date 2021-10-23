@@ -1,5 +1,5 @@
 
-public class LivroFactory extends AbstractProdutoFactory implements ProdutoFactoryIF{
+public class LivroFactory extends ProdutoFactory {
 	public LivroFactory() {
 		super();
 	}
@@ -9,9 +9,12 @@ public class LivroFactory extends AbstractProdutoFactory implements ProdutoFacto
 		super(codigo, nome);
 	}
 	
+	public void speak() {
+		System.out.println("EU AMO LIVROS");
+	}
 	
-	@Override
-	public ProdutoIF getProduto() {
+	
+	public ProdutoIF createProduto() {
 		return new Livro(this.codigo, this.nome);
 	}
 }

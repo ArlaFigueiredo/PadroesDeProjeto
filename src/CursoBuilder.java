@@ -10,7 +10,7 @@ public class CursoBuilder {
 	
 	public void put(TipoProduto tipo) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
 		DisciplinaFactory factory = (DisciplinaFactory) (Class.forName(tipo.getFactoryName()).newInstance());
-		ProdutoIF produto = factory.getProduto();
+		ProdutoIF produto = factory.createProduto();
 		this.produtos.put(tipo, produto);
 	}
 	

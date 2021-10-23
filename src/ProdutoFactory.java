@@ -1,18 +1,22 @@
 
-public abstract class AbstractProdutoFactory implements ProdutoFactoryIF{
+public abstract class ProdutoFactory {
 	
 	protected String codigo;
 	protected String nome;
 	
-	public AbstractProdutoFactory() {
+	public ProdutoFactory() {
 		super();
 	}
 
-	public AbstractProdutoFactory(String codigo, String nome) {
+	public ProdutoFactory(String codigo, String nome) {
 		super();
 		this.codigo = codigo;
 		this.nome = nome;
 	}
+	
+	public abstract void speak();
+	
+	public abstract ProdutoIF createProduto();
 	
 	public String getCodigo() {
 		return codigo;

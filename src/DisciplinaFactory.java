@@ -1,5 +1,5 @@
 
-public class DisciplinaFactory extends AbstractProdutoFactory implements ProdutoFactoryIF{
+public class DisciplinaFactory extends ProdutoFactory {
 
 	public DisciplinaFactory() {
 		super();
@@ -10,9 +10,11 @@ public class DisciplinaFactory extends AbstractProdutoFactory implements Produto
 		super(codigo, nome);
 	}
 	
+	public void speak() {
+		System.out.println("EU AMO DISCIPLINAS");
+	}
 	
-	@Override
-	public ProdutoIF getProduto() {
+	public ProdutoIF createProduto() {
 		return new Disciplina(this.codigo, this.nome);
 	}
 
