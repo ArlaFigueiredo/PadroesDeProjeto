@@ -3,26 +3,26 @@ import java.util.List;
 
 public class CursoBuilder {
 
-	private List<ProdutoIF> livros;
-	private List<ProdutoIF> disciplinas;
+	private List<Livro> livros;
+	private List<Disciplina> disciplinas;
 	private String codigo;
 	private String nome;
 	
 	public CursoBuilder() {
-		this.livros = new ArrayList<ProdutoIF>();
-		this.disciplinas = new ArrayList<ProdutoIF>();
+		this.livros = new ArrayList<Livro>();
+		this.disciplinas = new ArrayList<Disciplina>();
 	}
 	
-	public void addLivro(ProdutoIF livro) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
+	public void addLivro(Livro livro) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
 		this.livros.add(livro);
 	}
 	
-	public void addDisciplina(ProdutoIF disciplina) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
+	public void addDisciplina(Disciplina disciplina) throws InstantiationException, IllegalAccessException, ClassNotFoundException{
 		this.disciplinas.add(disciplina);
 	}
 	
 	public Curso build() {
-		return new Curso(codigo,nome,livros,disciplinas)
+		return new Curso(codigo,nome,livros,disciplinas);
 	}
 	
 }

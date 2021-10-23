@@ -2,13 +2,13 @@ import java.util.List;
 
 public class Curso {
 	
-	private List<ProdutoIF> livros;
-	private List<ProdutoIF> disciplinas;
+	private List<Livro> livros;
+	private List<Disciplina> disciplinas;
 	private String codigo;
 	private String nome;
 	private Ementa ementa;
 	
-	public Curso(String codigo, String nome, List<ProdutoIF> livros,List<ProdutoIF> disciplinas) {
+	public Curso(String codigo, String nome, List<Livro> livros,List<Disciplina> disciplinas) {
 		this.codigo = codigo;
 		this.nome = nome;
 		this.livros = livros;
@@ -19,6 +19,6 @@ public class Curso {
 	
 	public Ementa setEmenta() {
 		Ementa ementa = new Ementa(this.nome,this.codigo,this.disciplinas);
-		
+		return ementa;
 	}
 }

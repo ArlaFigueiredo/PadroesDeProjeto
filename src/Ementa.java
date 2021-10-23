@@ -20,7 +20,20 @@ public class Ementa {
 	
 	public void print() {
 		System.out.println(
-				"Nome do curso : " + this.nomeCurso + "\n"
-				"Codigo do curso : " + this.codigoCurso + "\n");
+				"Nome do curso : " + this.nomeCurso + "\n" +
+				"Codigo do curso : " + this.codigoCurso + "\n" +
+				"Disciplinas : " + this.printCH() +
+				"CH Total : "+ this.chTotal);
+	}
+	
+	public String printCH() {
+		StringBuilder dadosDisciplinas = new StringBuilder();
+		for(Disciplina disciplina : this.disciplinas) {
+			dadosDisciplinas.append(disciplina.getCodigo());
+			dadosDisciplinas.append(disciplina.getNome());
+			dadosDisciplinas.append(disciplina.getCargaHoraria());
+			dadosDisciplinas.append('\n');
+		}
+		return dadosDisciplinas.toString();
 	}
 }
