@@ -1,9 +1,9 @@
 
-public class Livro implements ProdutoIF{
-	private String codigo;
-	private String nome;
-	private double preco;
+public class Livro extends Produto implements ProdutoIF{
+	
 	private String isbn;
+	
+	public Livro() {}
 	
 	public Livro(String codigo, String nome) {
 		this.setNome(nome);
@@ -18,26 +18,7 @@ public class Livro implements ProdutoIF{
 		return this.isbn;
 	}
 	
-	public String getCodigo() {
-		return codigo;
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
 	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	@Override
-	public void setProduto(String codigo, String nome) {
-		this.setCodigo(codigo);
-		this.setNome(nome);
-	}
-	
 }

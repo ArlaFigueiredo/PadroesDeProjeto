@@ -1,11 +1,10 @@
 
-public class Disciplina implements ProdutoIF{
+public class Disciplina extends Produto implements ProdutoIF{
 	
-	private String codigo;
-	private String nome;
-	private double preco;
 	private int chTotal;
 	private double pctCumprido;
+	
+	public Disciplina() {}
 	
 	public Disciplina(String codigo, String nome) {
 		this.setNome(nome);
@@ -24,26 +23,11 @@ public class Disciplina implements ProdutoIF{
 		return this.pctCumprido;
 	}
 	
-	public String getCodigo() {
-		return codigo;
-	}
-
-	public void setCodigo(String codigo) {
-		this.codigo = codigo;
+	public void setCargaHoraria(int chTotal) {
+		this.chTotal = chTotal;
 	}
 	
-	public String getNome() {
-		return nome;
+	public void setPercentualCumprido(double pctCumprido) {
+		this.pctCumprido = pctCumprido;
 	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	@Override
-	public void setProduto(String codigo, String nome) {
-		this.setCodigo(codigo);
-		this.setNome(nome);
-	}
-	
 }

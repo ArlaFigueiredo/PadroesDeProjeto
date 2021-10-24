@@ -1,29 +1,34 @@
 import java.util.List;
 
-public class Curso implements Prototipavel{
+public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
-	private String codigo;
-	private String nome;
 	private Ementa ementa;
 	private int chTotal;
 	private int chCumprida;
 	
 	public Curso(String codigo, String nome, List<Livro> livros,List<Disciplina> disciplinas) {
-		this.codigo = codigo;
-		this.nome = nome;
+		this.setCodigo(codigo);
+		this.setNome(nome);
 		this.livros = livros;
 		this.disciplinas = disciplinas;
 	}
 	
-	public Ementa setEmenta() {
-		Ementa ementa = new Ementa(this.nome,this.codigo,this.disciplinas);
-		return ementa;
+	public void setEmenta() {
+		this.ementa = new Ementa(this.getNome(),this.getCodigo(),this.disciplinas);
 	}
 	
-	public String getNome() {
-		return this.nome;
+	public Ementa getEmenta() {
+		return this.ementa;
+	}
+	
+	public int getChTotal() {
+		return this.chTotal;
+	}
+	
+	public int getChCumprida() {
+		return this.chCumprida;
 	}
 
 	@Override
@@ -31,5 +36,10 @@ public class Curso implements Prototipavel{
 		Curso novoCurso = this;
 		novoCurso.chCumprida = 0;
 		return novoCurso;
+	}
+
+	@Override
+	public double getPreco() {
+		return this.preco;
 	}
 }
