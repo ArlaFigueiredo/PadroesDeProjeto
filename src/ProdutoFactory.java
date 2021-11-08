@@ -7,7 +7,7 @@ public abstract class ProdutoFactory {
 	
 	public ProdutoIF getProduto(String codigo, String nome) {
 		ProdutoIF produto = this.createProduto();
-		produto.setProduto(codigo, nome);
+		produto.ajustarProduto(codigo, nome);
 		return produto;
 	}
 

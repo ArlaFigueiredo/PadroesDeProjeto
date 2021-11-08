@@ -9,6 +9,10 @@ public abstract class Produto implements ProdutoIF{
 	
 	public abstract double getPreco();
 	
+	public abstract void ajustarProduto(String codigo, String nome);
+	
+	public abstract String getDetalhes();
+	
 	public String getCodigo() {
 		return codigo;
 	}
@@ -23,10 +27,5 @@ public abstract class Produto implements ProdutoIF{
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-	
-	public void setProduto(String codigo, String nome) {
-		this.setCodigo(codigo);
-		this.setNome(nome);
 	}
 }

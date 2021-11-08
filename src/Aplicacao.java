@@ -17,8 +17,8 @@ public class Aplicacao {
 	
 	public static void main(String[] args) throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Aplicacao app = new Aplicacao();
-		Disciplina disciplina =(Disciplina) app.produtoFactory.getProduto("123","Vidas Secas");
-		System.out.println( disciplina.getCargaHoraria());
+		ProdutoIF disciplina = app.produtoFactory.getProduto("123","Vidas Secas");
+		System.out.println( disciplina.getDetalhes());
 	}
 
 }

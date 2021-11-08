@@ -14,7 +14,7 @@ public class CursoBuilder {
 	}
 	
 	public void setNome(String nome){
-		this.nome = nome
+		this.nome = nome;
 	}
 
 	public void setCodigo(String codigo){
@@ -30,7 +30,7 @@ public class CursoBuilder {
 	}
 
 	private Ementa buildEmenta(){
-		// TO DO
+		// TODO
 	}
 	
 	public Curso build() {

@@ -1,5 +1,6 @@
 
 public interface ProdutoIF {
 	public double getPreco();
-	public void setProduto(String codigo, String nome);
+	public String getDetalhes();
+	public void ajustarProduto(String codigo, String nome);
 }
