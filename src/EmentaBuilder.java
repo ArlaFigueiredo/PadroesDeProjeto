@@ -1,14 +1,14 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class CursoBuilder implements BuilderIF{
+public class EmentaBuilder implements BuilderIF{
 
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
 	private String codigo;
 	private String nome;
 	
-	public CursoBuilder() {
+	public EmentaBuilder() {
 		this.livros = new ArrayList<Livro>();
 		this.disciplinas = new ArrayList<Disciplina>();
 	}
@@ -30,8 +30,9 @@ public class CursoBuilder implements BuilderIF{
 	}
 
 	
-	public Curso build() {
-		return new Curso(this.codigo, this.nome, this.livros, this.disciplinas);
+	public Ementa build() {
+		return new Ementa(this.codigo, this.nome,  this.disciplinas, this.livros);
 	}
 	
 }
+

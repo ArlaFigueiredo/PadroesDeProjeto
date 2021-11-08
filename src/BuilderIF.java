@@ -1,7 +1,8 @@
+import java.util.List;
 
 public interface BuilderIF {
-	public void setNome();
-	public void setCodigo();
-	public void setLivro();
-	public void setDisciplina();
+	public void setNome(String nome);
+	public void setCodigo(String codigo);
+	public void setLivros(List<Livro> livros);
+	public void setDisciplinas(List<Disciplina> disciplinas);
 }

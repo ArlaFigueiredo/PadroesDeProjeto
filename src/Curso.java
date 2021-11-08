@@ -4,7 +4,6 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
-	//private Ementa ementa;
 	
 	public Curso(String codigo, String nome, List<Livro> livros,List<Disciplina> disciplinas) {
 		this.setCodigo(codigo);
@@ -12,15 +11,6 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		this.livros = livros;
 		this.disciplinas = disciplinas;
 	}
-	
-	/*
-	public void setEmenta() {
-		this.ementa = new Ementa(this.getNome(),this.getCodigo(),this.disciplinas);
-	}
-	
-	public Ementa getEmenta() {
-		return this.ementa;
-	}*/
 	
 	public int getChTotal() {
 		int CHTotal = 0;
