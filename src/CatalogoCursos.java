@@ -12,21 +12,22 @@ public class CatalogoCursos {
 		return CatalogoCursos.catalogo; 
 	}
 	
-	private List<Curso> cursos;
+	private List<Prototipavel> cursos;
 	
 	public CatalogoCursos() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		this.cursos = new ArrayList<Curso>();
+		this.cursos = new ArrayList<Prototipavel>();
 	}
 	
-	public void addCurso(Curso curso) {
+	public void addCurso(Prototipavel curso) {
 		this.cursos.add(curso);
 	}
 	
 	public Prototipavel getCurso(String nome) {
 		
-		for(Curso curso: cursos) {
-			if(nome.equalsIgnoreCase(curso.getNome())){
-				return curso.prototipar();
+		for(Prototipavel curso: this.cursos) {
+			Curso c = (Curso) curso;
+			if(nome.equalsIgnoreCase(c.getNome())){
+				return c;
 			}
 		}
 		return null;

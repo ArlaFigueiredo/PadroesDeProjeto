@@ -29,12 +29,13 @@ public class CursoBuilder {
 		this.disciplinas.add(disciplina);
 	}
 
+	/*
 	private Ementa buildEmenta(){
 		// TODO
-	}
+	}*/
 	
 	public Curso build() {
-		Ementa ementa = this.buildEmenta();
+		//Ementa ementa = this.buildEmenta();
 		return new Curso(this.codigo, this.nome, this.livros, this.disciplinas);
 	}
 	
