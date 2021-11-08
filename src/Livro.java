@@ -36,5 +36,15 @@ public class Livro extends Produto implements ProdutoIF{
 						+ "/ ISBN: "+ this.getIsbn();
 		return detalhes;
 	}
+	
+	public String toString() {
+		StringBuilder dadosLivros = new StringBuilder();	
+		dadosLivros.append("Codigo: ");
+		dadosLivros.append(this.getCodigo());
+		dadosLivros.append(" Nome: ");
+		dadosLivros.append(this.getNome());
+		dadosLivros.append('\n');
+		return dadosLivros.toString();
+	}
 
 }

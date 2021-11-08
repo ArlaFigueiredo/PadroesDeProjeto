@@ -21,47 +21,26 @@ public class Aplicacao {
 		CatalogoCursos catalogo = CatalogoCursos.getGerente();
 		
 		CursoBuilder builderCurso = new CursoBuilder();
-		Diretor diretor = new Diretor("1", "Curso de Qualidade");
 		
 		Disciplina disciplina =(Disciplina) app.produtoFactory.getProduto("123","Vidas Secas");
 		disciplina.setCargaHoraria(10);
-		
 		Disciplina disciplina2 =(Disciplina) app.produtoFactory.getProduto("321","Espadachim de Carvão");
 		disciplina2.setCargaHoraria(10);
-		
-		Disciplina disciplina3 =(Disciplina) app.produtoFactory.getProduto("213","A Mente de Fred");
+		Disciplina disciplina3 =(Disciplina) app.produtoFactory.getProduto("213","A Mente de Freud");
 		disciplina3.setCargaHoraria(10);
 		
 		
-		diretor.addDisciplina(disciplina);
-		diretor.addDisciplina(disciplina2);
-		diretor.addDisciplina(disciplina3);
-		
-		diretor.construct(builderCurso);
+		builderCurso.addDisciplinas(disciplina);
+		builderCurso.addDisciplinas(disciplina2);
+		builderCurso.addDisciplinas(disciplina3);
+		builderCurso.setCodigo("123");
+		builderCurso.setNome("UAU");
 		
 		Curso curso = builderCurso.build();
+		Ementa ementa = curso.getEmenta();
 		
-		EmentaBuilder ementaBuilder = new EmentaBuilder();
-		
-		diretor.construct(ementaBuilder);
-		
-		Ementa ementa = ementaBuilder.build();
-		
-		catalogo.addCurso(curso.prototipar());
-		
-		
-		Disciplina disciplina4 =(Disciplina) app.produtoFactory.getProduto("123","Vidas Secas");
-		disciplina4.setCargaHoraria(5);
-		
-		Disciplina disciplina5 =(Disciplina) app.produtoFactory.getProduto("321","Espadachim de Carvão");
-		disciplina5.setCargaHoraria(5);
-		
-		Disciplina disciplina6 =(Disciplina) app.produtoFactory.getProduto("213","A Mente de Fred");
-		disciplina6.setCargaHoraria(5);
-		
-		
-		Curso cursoEncontrado = (Curso) catalogo.getCurso("Curso de Qualidade");
-		System.out.println(cursoEncontrado.getChTotal());
+		System.out.println(curso.getChTotal());
+		ementa.print();
 	}
 
 }

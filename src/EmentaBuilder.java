@@ -21,15 +21,14 @@ public class EmentaBuilder implements BuilderIF{
 		this.codigo = codigo;
 	}
 	
-	public void setLivros(List<Livro> livros){
-		this.livros = livros;
+	public void addLivros(Livro livro) {
+		this.livros.add(livro);
 	}
 	
-	public void setDisciplinas(List<Disciplina> disciplinas){
-		this.disciplinas = disciplinas;
+	public void addDisciplinas(Disciplina disciplina) {
+		this.disciplinas.add(disciplina);
 	}
 
-	
 	public Ementa build() {
 		return new Ementa(this.codigo, this.nome,  this.disciplinas, this.livros);
 	}

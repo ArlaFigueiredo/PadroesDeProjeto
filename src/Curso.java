@@ -36,6 +36,19 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return novoCurso;
 	}
 
+	public Ementa getEmenta() {
+		
+		EmentaBuilder builder = new EmentaBuilder();
+		for(Disciplina disciplina : this.disciplinas)
+			builder.addDisciplinas(disciplina);
+		for(Livro livro : this.livros)
+			builder.addLivros(livro);
+		builder.setCodigo(this.getCodigo());
+		builder.setNome(this.getNome());
+		Ementa ementa = builder.build();
+		return ementa;
+	}
+	
 	@Override
 	public double getPreco() {
 		return this.preco;

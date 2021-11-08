@@ -51,4 +51,16 @@ public class Disciplina extends Produto implements ProdutoIF{
 						+ "/ %CH.Cumprida: "+ this.getPercentualCumprido();
 		return detalhes;
 	}
+	
+	public String toString() {
+		StringBuilder dadosDisciplinas = new StringBuilder();
+			dadosDisciplinas.append("Codigo: ");
+			dadosDisciplinas.append(this.getCodigo());
+			dadosDisciplinas.append(" Nome: ");
+			dadosDisciplinas.append(this.getNome());
+			dadosDisciplinas.append(" Carga Horaria: ");
+			dadosDisciplinas.append(this.getCargaHoraria());
+			dadosDisciplinas.append('\n');
+		return dadosDisciplinas.toString();
+	}
 }

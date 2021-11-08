@@ -24,18 +24,15 @@ public class Ementa {
 		System.out.println(
 				"Nome do curso : " + this.nomeCurso + "\n" +
 				"Codigo do curso : " + this.codigoCurso + "\n" +
-				"Disciplinas : " + this.printDisciplinas() +
-				"Livros : " + this.printLivros() +
+				"Disciplinas : \n" + this.printDisciplinas() +
+				"Livros : \n" + this.printLivros() +
 				"CH Total : "+ this.chTotal);
 	}
 	
 	public String printDisciplinas() {
 		StringBuilder dadosDisciplinas = new StringBuilder();
 		for(Disciplina disciplina : this.disciplinas) {
-			dadosDisciplinas.append(disciplina.getCodigo());
-			dadosDisciplinas.append(disciplina.getNome());
-			dadosDisciplinas.append(disciplina.getCargaHoraria());
-			dadosDisciplinas.append('\n');
+			dadosDisciplinas.append(disciplina.toString());
 		}
 		return dadosDisciplinas.toString();
 	}
@@ -43,9 +40,7 @@ public class Ementa {
 	public String printLivros() {
 		StringBuilder dadosLivros = new StringBuilder();
 		for(Livro livro : this.livros) {
-			dadosLivros.append(livro.getCodigo());
-			dadosLivros.append(livro.getNome());
-			dadosLivros.append('\n');
+			dadosLivros.append(livro.toString());
 		}
 		return dadosLivros.toString();
 	}
