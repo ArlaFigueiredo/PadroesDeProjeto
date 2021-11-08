@@ -39,6 +39,10 @@ public class Disciplina extends Produto implements ProdutoIF{
 		this.setPercentualCumprido(0);
 	}
 	
+	public void reset() {
+		this.setPercentualCumprido(0);
+	}
+	
 	@Override
 	public String getDetalhes() {
 		String detalhes =  "Nome: "+ this.getNome() 
