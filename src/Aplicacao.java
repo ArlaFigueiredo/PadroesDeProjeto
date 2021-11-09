@@ -18,13 +18,13 @@ public class Aplicacao {
 	public static void main(String[] args) throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		
 		Aplicacao app = new Aplicacao();
-		CatalogoCursos catalogo = CatalogoCursos.getGerente();
+		CatalogoCursos catalogo = CatalogoCursos.getCatalogo();
 		
 		CursoBuilder builderCurso = new CursoBuilder();
 		
 		Disciplina disciplina =(Disciplina) app.produtoFactory.getProduto("123","Vidas Secas");
 		disciplina.setCargaHoraria(10);
-		Disciplina disciplina2 =(Disciplina) app.produtoFactory.getProduto("321","Espadachim de Carvão");
+		Disciplina disciplina2 =(Disciplina) app.produtoFactory.getProduto("321","Espadachim de Carvï¿½o");
 		disciplina2.setCargaHoraria(10);
 		Disciplina disciplina3 =(Disciplina) app.produtoFactory.getProduto("213","A Mente de Freud");
 		disciplina3.setCargaHoraria(10);
