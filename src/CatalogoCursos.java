@@ -6,7 +6,7 @@ public class CatalogoCursos {
 	
 	private static CatalogoCursos catalogo;
 	
-	public static CatalogoCursos getGerente() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static CatalogoCursos getCatalogo() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		if(CatalogoCursos.catalogo == null)
 			CatalogoCursos.catalogo = new CatalogoCursos();
 		return CatalogoCursos.catalogo; 
