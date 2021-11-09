@@ -20,7 +20,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return CHTotal;
 	}
 	
-	public int getChCumprida() {
+	public double getChCumprida() {
 		int pctCumprido = 0;
 		int iCount = 0;
 		for(Disciplina disciplina : disciplinas)
