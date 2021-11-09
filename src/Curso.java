@@ -22,10 +22,12 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	
 	public int getChCumprida() {
 		int pctCumprido = 0;
+		int iCount = 0;
 		for(Disciplina disciplina : disciplinas)
             pctCumprido += disciplina.getPercentualCumprido();
+			iCount += 1;
 		
-		return pctCumprido;
+		return pctCumprido/iCount;
 	}
 
 	@Override
