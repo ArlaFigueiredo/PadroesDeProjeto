@@ -8,10 +8,26 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	public Curso(String codigo, String nome, List<Livro> livros,List<Disciplina> disciplinas) {
 		this.setCodigo(codigo);
 		this.setNome(nome);
-		this.livros = livros;
-		this.disciplinas = disciplinas;
+		this.setLivros(livros);
+		this.setDisciplinas(disciplinas);
 	}
 	
+	public List<Livro> getLivros() {
+		return livros;
+	}
+
+	public void setLivros(List<Livro> livros) {
+		this.livros = livros;
+	}
+
+	public List<Disciplina> getDisciplinas() {
+		return disciplinas;
+	}
+
+	public void setDisciplinas(List<Disciplina> disciplinas) {
+		this.disciplinas = disciplinas;
+	}
+
 	public int getChTotal() {
 		int CHTotal = 0;
 		for(Disciplina disciplina : disciplinas)
@@ -30,7 +46,6 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return pctCumprido/iCount;
 	}
 
-	@Override
 	public Prototipavel prototipar() {
 		Curso novoCurso = this;
 		for(Disciplina disciplina : novoCurso.disciplinas)
@@ -51,18 +66,17 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return ementa;
 	}
 	
-	@Override
 	public double getPreco() {
 		return this.preco;
 	}
 
-	@Override
 	public void ajustarProduto(String codigo, String nome) {
 		this.setCodigo(codigo);
 		this.setNome(nome);
+		this.setLivros(null);
+		this.setDisciplinas(null);
 	}
 	
-	@Override
 	public String getDetalhes() {
 		String detalhes =  "Nome: "+ this.getNome() 
 						+ "/ Codigo: "+ this.getCodigo();
