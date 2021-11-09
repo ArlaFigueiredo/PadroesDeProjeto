@@ -11,10 +11,6 @@ public class Aplicacao {
 		this.produtoFactory = (ProdutoFactory) (Class.forName(Aplicacao.PRODUTO.getFactoryName()).newInstance());
 	}
 	
-	public void comprar() throws InterruptedException {
-		
-	}
-	
 	public static void main(String[] args) throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		
 		Aplicacao app = new Aplicacao();
@@ -29,15 +25,14 @@ public class Aplicacao {
 		Disciplina disciplina3 =(Disciplina) app.produtoFactory.getProduto("213","A Mente de Freud");
 		disciplina3.setCargaHoraria(10);
 		
-		
+		builderCurso.setCodigo("123");
+		builderCurso.setNome("UAU");
 		builderCurso.addDisciplinas(disciplina);
 		builderCurso.addDisciplinas(disciplina2);
 		builderCurso.addDisciplinas(disciplina3);
-		builderCurso.setCodigo("123");
-		builderCurso.setNome("UAU");
 		
 		Curso curso = builderCurso.build();
-		Ementa ementa = curso.getEmenta();
+		Ementa ementa = curso.buildEmenta();
 		
 		System.out.println(curso.getChTotal());
 		ementa.print();

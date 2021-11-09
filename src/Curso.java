@@ -38,7 +38,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return novoCurso;
 	}
 
-	public Ementa getEmenta() {
+	public Ementa buildEmenta() {
 		
 		EmentaBuilder builder = new EmentaBuilder();
 		for(Disciplina disciplina : this.disciplinas)
@@ -58,13 +58,14 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 
 	@Override
 	public void ajustarProduto(String codigo, String nome) {
-		// TODO Auto-generated method stub
-		
+		this.setCodigo(codigo);
+		this.setNome(nome);
 	}
 	
 	@Override
 	public String getDetalhes() {
-		// TODO Auto-generated method stub
-		return null;
+		String detalhes =  "Nome: "+ this.getNome() 
+						+ "/ Codigo: "+ this.getCodigo();
+		return detalhes;
 	}
 }
