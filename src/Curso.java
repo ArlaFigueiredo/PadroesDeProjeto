@@ -39,6 +39,9 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 			}
 		}	
 	
+	
+	private List<CheckpointObserver> observers;
+	
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
 	
@@ -135,5 +138,18 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	
 	public void restore(Situacao snapshot) {
 		snapshot.restore();
+	}
+	
+	public void attachStateChangedObserver(CheckpointObserver observer) {
+		this.observers.add(observer); 
+	}
+	
+	public void detachStateChangedObserver(CheckpointObserver observer) {
+		this.observers.remove(observer); 
+	}
+	
+	public void fireStateChangedEvent(String tipoCheckpoint, List<Disciplina> disciplinas) {
+		for(CheckpointObserver observer : this.observers)
+			observer.notifyStateChanged(new CheckpointChangedEvent(tipoCheckpoint, disciplinas));
 	}
 }
