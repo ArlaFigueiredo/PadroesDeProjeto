@@ -1,11 +1,16 @@
 
-public abstract class Produto implements ProdutoIF{
+public abstract class Produto implements ProdutoIF, Prototipavel{
 	
 	private String codigo;
 	private String nome;
 	protected double preco;
 	
 	public Produto() {}
+	
+	public Produto(Produto produto) {
+		this.codigo = produto.codigo;
+		this.nome = produto.nome;
+	}
 	
 	public abstract double getPreco();
 	

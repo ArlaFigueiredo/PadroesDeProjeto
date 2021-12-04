@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Aplicacao {
 	
@@ -13,8 +15,8 @@ public class Aplicacao {
 	
 	public static void main(String[] args) throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException {
 		
-		Aplicacao.testeFactory();
-		//Aplicacao.testeBuilder();
+		//Aplicacao.testeFactory();
+		Aplicacao.testeBuilder();
 		//Aplicacao.testePrototypeSingleton();
 	}
 	
@@ -34,6 +36,7 @@ public class Aplicacao {
 	public static void testeBuilder() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
 		Aplicacao app = new Aplicacao();
 		CursoBuilder builderCurso = new CursoBuilder();
+		List<Curso.Situacao> snapshots = new ArrayList<Curso.Situacao>();
 		
 		Disciplina disciplina =(Disciplina) app.produtoFactory.getProduto("123","Padrões Criacionais");
 		disciplina.setCargaHoraria(10);
@@ -49,11 +52,34 @@ public class Aplicacao {
 		builderCurso.addDisciplinas(disciplina3);
 		
 		Curso curso = builderCurso.build();
+		curso.avancar("Padrões Criacionais", 0.20);
+		curso.avancar("Padrões Comportamentais", 0.50);
+		curso.avancar("Padrões Estruturais", 0.80);
+		
+		snapshots.add(curso.getCheckpoint());
+		
+		curso.avancar("Padrões Criacionais", 0.30);
+		curso.avancar("Padrões Comportamentais", 0.30);
+		curso.avancar("Padrões Estruturais", 0.30);
+		
+		System.out.println(snapshots.get(0));
+		Ementa ementa = curso.buildEmenta();
+		System.out.println("Ementa: \n");
+		ementa.print();
+		
+		curso.restore(snapshots.get(0));
+		
+		Ementa ementa2 = curso.buildEmenta();
+		System.out.println("Ementa: \n");
+		ementa2.print();
+		
+		
+		/*Curso curso = builderCurso.build();
 		Ementa ementa = curso.buildEmenta();
 		
 		System.out.println(curso.getDetalhes()+"\n");
 		System.out.println("Ementa: \n");
-		ementa.print();
+		ementa.print();*/
 	}
 	
 	public static void testePrototypeSingleton() throws InstantiationException, IllegalAccessException, ClassNotFoundException {

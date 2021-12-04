@@ -1,7 +1,13 @@
 
-public class Livro extends Produto implements ProdutoIF{
+public class Livro extends Produto implements ProdutoIF, Prototipavel{
 	
 	private String isbn;
+	
+	public Livro(Livro livro) {
+		super(livro);
+		this.isbn = livro.isbn;
+		this.preco = livro.preco;
+	}	
 	
 	public Livro() {}
 	
@@ -45,6 +51,11 @@ public class Livro extends Produto implements ProdutoIF{
 		dadosLivros.append(this.getNome());
 		dadosLivros.append('\n');
 		return dadosLivros.toString();
+	}
+	
+	@Override
+	public Prototipavel prototipar() {
+		return new Livro(this);
 	}
 
 }

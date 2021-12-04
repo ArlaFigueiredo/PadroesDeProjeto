@@ -1,6 +1,43 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Curso extends Produto implements ProdutoIF, Prototipavel{
+	
+	public class Situacao {
+			
+			private Curso curso;
+			
+			private List<Livro> livros;
+			private List<Disciplina> disciplinas;
+			
+			//MEMENTO em um Memento
+			private Situacao(Curso curso, 
+							 List<Livro> livros,
+							 List<Disciplina> disciplinas) {
+				
+				this.curso = curso;
+				
+				this.disciplinas = new ArrayList<Disciplina>();
+				for(Disciplina d : disciplinas)
+					this.disciplinas.add((Disciplina)d.prototipar());
+				this.livros = new ArrayList<Livro>();
+				for(Livro l : curso.livros)
+					this.livros.add((Livro)l.prototipar());
+			}
+			
+			private void restore() {
+				this.curso.setLivros(livros);
+				this.curso.setDisciplinas(disciplinas);
+			}
+			
+			public String toString() {
+				StringBuilder dadosDisciplinas = new StringBuilder();
+					dadosDisciplinas.append("Disciplina: ");
+					dadosDisciplinas.append(this.disciplinas);
+					dadosDisciplinas.append('\n');
+				return dadosDisciplinas.toString();
+			}
+		}	
 	
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
@@ -81,5 +118,22 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		String detalhes =  "Nome: "+ this.getNome() 
 						+ "/ Codigo: "+ this.getCodigo();
 		return detalhes;
+	}
+	
+	public void avancar(String nomeDisciplina, double percentual) {
+		for(Disciplina disciplina : this.disciplinas) {
+			if(nomeDisciplina.equalsIgnoreCase(disciplina.getNome())){
+				disciplina.setPercentualCumprido(percentual + disciplina.getPercentualCumprido());
+			}
+		}
+	}
+	
+	public Situacao getCheckpoint() {
+		return new Situacao(this, this.livros, 
+							this.disciplinas);
+	}
+	
+	public void restore(Situacao snapshot) {
+		snapshot.restore();
 	}
 }

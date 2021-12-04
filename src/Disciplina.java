@@ -1,8 +1,15 @@
 
-public class Disciplina extends Produto implements ProdutoIF{
+public class Disciplina extends Produto implements ProdutoIF, Prototipavel{
 	
 	private int chTotal;
 	private double pctCumprido;
+	
+	public Disciplina(Disciplina disciplina) {
+		super(disciplina);
+		this.chTotal = disciplina.chTotal;
+		this.pctCumprido = disciplina.pctCumprido;
+		this.preco = disciplina.preco;
+	}
 	
 	public Disciplina() {}
 	
@@ -60,7 +67,14 @@ public class Disciplina extends Produto implements ProdutoIF{
 			dadosDisciplinas.append(this.getNome());
 			dadosDisciplinas.append(" Carga Horaria: ");
 			dadosDisciplinas.append(this.getCargaHoraria());
+			dadosDisciplinas.append(" Carga Horaria Cumprida: ");
+			dadosDisciplinas.append(this.getPercentualCumprido());
 			dadosDisciplinas.append('\n');
 		return dadosDisciplinas.toString();
+	}
+	
+	@Override
+	public Prototipavel prototipar() {
+		return new Disciplina(this);
 	}
 }
