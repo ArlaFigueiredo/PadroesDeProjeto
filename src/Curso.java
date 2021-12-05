@@ -50,6 +50,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		this.setNome(nome);
 		this.setLivros(livros);
 		this.setDisciplinas(disciplinas);
+		this.observers = new ArrayList<CheckpointObserver>();
 	}
 	
 	public List<Livro> getLivros() {
@@ -132,12 +133,16 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	}
 	
 	public Situacao getCheckpoint() {
-		return new Situacao(this, this.livros, 
-							this.disciplinas);
+		Situacao checkpoint = new Situacao(this, this.livros, 
+				this.disciplinas);
+		this.fireStateChangedEvent("SALVAMENTO", this.disciplinas);
+		
+		return checkpoint;
 	}
 	
 	public void restore(Situacao snapshot) {
 		snapshot.restore();
+		this.fireStateChangedEvent("RESTAURAÇÃO", this.disciplinas);
 	}
 	
 	public void attachStateChangedObserver(CheckpointObserver observer) {

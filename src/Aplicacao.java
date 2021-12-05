@@ -52,6 +52,10 @@ public class Aplicacao {
 		builderCurso.addDisciplinas(disciplina3);
 		
 		Curso curso = builderCurso.build();
+		curso.attachStateChangedObserver(new CheckpointChangedLogger());
+		curso.attachStateChangedObserver(new CheckpointChangedSMS());
+		curso.attachStateChangedObserver(new CheckpointChangedEmail());
+		
 		curso.avancar("Padrões Criacionais", 0.20);
 		curso.avancar("Padrões Comportamentais", 0.50);
 		curso.avancar("Padrões Estruturais", 0.80);

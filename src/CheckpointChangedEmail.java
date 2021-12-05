@@ -4,6 +4,9 @@ import java.util.Date;
 public class CheckpointChangedEmail implements CheckpointObserver{
 	@Override
 	public void notifyStateChanged(CheckpointChangedEvent e) {
-		//"TO DO";
+		SimpleDateFormat fd = new SimpleDateFormat("hh:mm:ss:SSSS");
+		String data = fd.format(new Date());
+		System.err.println("NOTIFY E-MAIL");
+		System.err.println("[" + data + "] " + "Um checkpoint de " + e.getTipoCheckpoint() + " foi efetuado. " + e.getCHDisciplinas());
 	}
 }
