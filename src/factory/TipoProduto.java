@@ -1,9 +1,10 @@
-package model;
+package factory;
 
 public enum TipoProduto {
 	
-	LIVRO("LivroFactory"), 
-	DISCIPLINA("DisciplinaFactory");
+	LIVRO("factory.LivroFactory"), 
+	DISCIPLINA("factory.DisciplinaFactory"),
+	CURSO("factory.CursoFactory");
 	
 	String className;
 	

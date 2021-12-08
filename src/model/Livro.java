@@ -2,21 +2,32 @@ package model;
 
 import prototype.Prototipavel;
 
+
 public class Livro extends Produto implements ProdutoIF, Prototipavel{
 	
+	private double preco;
 	private String isbn;
 	
 	public Livro(Livro livro) {
 		super(livro);
-		this.isbn = livro.isbn;
-		this.preco = livro.preco;
-	}	
-	
-	public Livro() {}
+		this.setIsbn(livro.getIsbn());
+		this.setPreco(livro.getPreco());
+	}
 	
 	public Livro(String codigo, String nome) {
-		this.setNome(nome);
-		this.setCodigo(codigo);
+		super(codigo, nome);
+	}
+	
+	public Livro(String codigo, String nome, 
+					  String isbn,
+					  double preco) {
+		super(codigo, nome);
+		this.setIsbn(isbn);
+		this.setPreco(preco);
+	}	
+	
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 	
 	public double getPreco() {
@@ -30,21 +41,6 @@ public class Livro extends Produto implements ProdutoIF, Prototipavel{
 	public void setIsbn(String isbn) {
 		this.isbn = isbn;
 	}
-
-	@Override
-	public void ajustarProduto(String codigo, String nome) {
-		this.setCodigo(codigo);
-		this.setNome(nome);
-		this.setIsbn(null);
-	}
-
-	@Override
-	public String getDetalhes() {
-		String detalhes =  "Nome: "+ this.getNome() 
-						+ "/ Codigo: "+ this.getCodigo()
-						+ "/ ISBN: "+ this.getIsbn();
-		return detalhes;
-	}
 	
 	public String toString() {
 		StringBuilder dadosLivros = new StringBuilder();	
@@ -56,9 +52,7 @@ public class Livro extends Produto implements ProdutoIF, Prototipavel{
 		return dadosLivros.toString();
 	}
 	
-	@Override
 	public Prototipavel prototipar() {
 		return new Livro(this);
 	}
-
 }

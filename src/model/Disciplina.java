@@ -2,23 +2,35 @@ package model;
 
 import prototype.Prototipavel;
 
+
 public class Disciplina extends Produto implements ProdutoIF, Prototipavel{
 	
+	private double preco;
 	private int chTotal;
 	private double pctCumprido;
 	
 	public Disciplina(Disciplina disciplina) {
 		super(disciplina);
-		this.chTotal = disciplina.chTotal;
-		this.pctCumprido = disciplina.pctCumprido;
-		this.preco = disciplina.preco;
+		this.setCargaHoraria(disciplina.getCargaHoraria());
+		this.setPercentualCumprido(disciplina.getPercentualCumprido());
+		this.setPreco(disciplina.getPreco());
 	}
 	
-	public Disciplina() {}
-	
 	public Disciplina(String codigo, String nome) {
-		this.setNome(nome);
-		this.setCodigo(codigo);
+		super(codigo, nome);
+	}
+	
+	public Disciplina(String codigo, String nome, 
+					  int chTotal,
+					  double pctCumprido, double preco) {
+		super(codigo, nome);
+		this.setCargaHoraria(chTotal);
+		this.setPercentualCumprido(pctCumprido);
+		this.setPreco(preco);
+	}
+	
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 	
 	public double getPreco() {
@@ -40,26 +52,9 @@ public class Disciplina extends Produto implements ProdutoIF, Prototipavel{
 	public void setPercentualCumprido(double pctCumprido) {
 		this.pctCumprido = pctCumprido;
 	}
-
-	@Override
-	public void ajustarProduto(String codigo, String nome) {
-		this.setCodigo(codigo);
-		this.setNome(nome);
-		this.setCargaHoraria(0);
-		this.setPercentualCumprido(0);
-	}
 	
 	public void reset() {
 		this.setPercentualCumprido(0);
-	}
-	
-	@Override
-	public String getDetalhes() {
-		String detalhes =  "Nome: "+ this.getNome() 
-						+ "/ Codigo: "+ this.getCodigo()
-						+ "/ CH.Total: "+ this.getCargaHoraria()
-						+ "/ %CH.Cumprida: "+ this.getPercentualCumprido();
-		return detalhes;
 	}
 	
 	public String toString() {
@@ -76,7 +71,6 @@ public class Disciplina extends Produto implements ProdutoIF, Prototipavel{
 		return dadosDisciplinas.toString();
 	}
 	
-	@Override
 	public Prototipavel prototipar() {
 		return new Disciplina(this);
 	}

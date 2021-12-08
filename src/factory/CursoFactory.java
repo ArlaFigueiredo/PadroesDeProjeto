@@ -1,14 +1,14 @@
 package factory;
 
 import model.ProdutoIF;
-import model.Disciplina;
+import model.Curso;
 
 
-public class DisciplinaFactory extends ProdutoFactory {
+public class CursoFactory extends ProdutoFactory{
 	
 	@Override
 	public ProdutoIF createProduto(String codigo, String nome) {
-		return new Disciplina(codigo, nome);
+		return new Curso(codigo, nome);
 	}
 
 }

@@ -50,9 +50,24 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
 	
+	private Curso(Curso curso) {
+		super(curso);
+		this.disciplinas = new ArrayList<Disciplina>();
+		for(Disciplina d : curso.disciplinas)
+			this.disciplinas.add((Disciplina)d.prototipar());
+		this.livros = new ArrayList<Livro>();
+		for(Livro l : curso.livros)
+			this.livros.add((Livro)l.prototipar());
+	}
+	
+	public Curso(String codigo, String nome) {
+		super(codigo, nome);
+		this.disciplinas = new ArrayList<Disciplina>();
+		this.livros = new ArrayList<Livro>();
+	}
+	
 	public Curso(String codigo, String nome, List<Livro> livros,List<Disciplina> disciplinas) {
-		this.setCodigo(codigo);
-		this.setNome(nome);
+		super(codigo, nome);
 		this.setLivros(livros);
 		this.setDisciplinas(disciplinas);
 		this.observers = new ArrayList<CheckpointObserver>();
@@ -63,7 +78,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	}
 
 	public void setLivros(List<Livro> livros) {
-		this.livros = livros;
+		this.livros = new ArrayList<Livro>(livros);
 	}
 
 	public List<Disciplina> getDisciplinas() {
@@ -71,7 +86,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	}
 
 	public void setDisciplinas(List<Disciplina> disciplinas) {
-		this.disciplinas = disciplinas;
+		this.disciplinas = new ArrayList<Disciplina>(disciplinas);
 	}
 
 	public int getChTotal() {
@@ -93,27 +108,14 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	}
 
 	public Prototipavel prototipar() {
-		Curso novoCurso = this;
+		Curso novoCurso = new Curso(this);
 		for(Disciplina disciplina : novoCurso.disciplinas)
             disciplina.reset();
 		return novoCurso;
 	}
-
-	/*public Ementa buildEmenta() {
-		
-		EmentaBuilder builder = new EmentaBuilder();
-		for(Disciplina disciplina : this.disciplinas)
-			builder.addDisciplinas(disciplina);
-		for(Livro livro : this.livros)
-			builder.addLivros(livro);
-		builder.setCodigo(this.getCodigo());
-		builder.setNome(this.getNome());
-		Ementa ementa = builder.build();
-		return ementa;
-	}*/
 	
 	public double getPreco() {
-		return this.preco;
+		return 0;
 	}
 
 	public void ajustarProduto(String codigo, String nome) {

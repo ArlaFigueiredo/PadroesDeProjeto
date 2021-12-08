@@ -6,20 +6,19 @@ public abstract class Produto implements ProdutoIF, Prototipavel{
 	
 	private String codigo;
 	private String nome;
-	protected double preco;
-	
-	public Produto() {}
 	
 	public Produto(Produto produto) {
 		this.codigo = produto.codigo;
 		this.nome = produto.nome;
 	}
 	
+	public Produto(String codigo, String nome) {
+		this.codigo = codigo;
+		this.nome = nome;
+	}
+	
 	public abstract double getPreco();
 	
-	public abstract void ajustarProduto(String codigo, String nome);
-	
-	public abstract String getDetalhes();
 	
 	public String getCodigo() {
 		return codigo;
@@ -35,5 +34,9 @@ public abstract class Produto implements ProdutoIF, Prototipavel{
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String toString() {
+		return "[" + this.getCodigo() + "] - " + this.getNome(); 
 	}
 }

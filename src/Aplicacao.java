@@ -1,12 +1,13 @@
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import builder.CursoBuilder;
 import factory.ProdutoFactory;
+import factory.TipoProduto;
 import model.Curso;
 import model.Disciplina;
 import model.Ementa;
 import model.ProdutoIF;
-import model.TipoProduto;
 import observer.CheckpointChangedEmail;
 import observer.CheckpointChangedLogger;
 import observer.CheckpointChangedSMS;
@@ -14,46 +15,21 @@ import singleton.CatalogoCursos;
 
 public class Aplicacao {
 	
-	public static TipoProduto PRODUTO = TipoProduto.DISCIPLINA;
-	public static String codigo = "50784";
-	public static String nome = "Abstract Factory";
-	private ProdutoFactory produtoFactory;
-	
-	
-	public Aplicacao() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		this.produtoFactory = (ProdutoFactory) (Class.forName(Aplicacao.PRODUTO.getFactoryName()).newInstance());
+	public static void main(String[] args) throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+		
+		Aplicacao.teste();
 	}
 	
-	public static void main(String[] args) throws InterruptedException, InstantiationException, IllegalAccessException, ClassNotFoundException {
-		
-		//Aplicacao.testeFactory();
-		Aplicacao.testeBuilder();
-		//Aplicacao.testePrototypeSingleton();
-	}
-	
-	public static void testeFactory() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		Aplicacao app = new Aplicacao();
-		ProdutoIF disciplina = app.produtoFactory.getProduto("321","Padrões Criacionais");
-		System.out.println(disciplina.getDetalhes());
-		
-		
-		/*Testa a criação de um livro
-		Aplicacao app = new Aplicacao();
-		ProdutoIF disciplina = app.produtoFactory.getProduto("123","GOF GANG");
-		System.out.println(disciplina.getDetalhes());
-		*/
-	}
-	
-	public static void testeBuilder() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+	public static void teste() throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Aplicacao app = new Aplicacao();
 		CursoBuilder builderCurso = new CursoBuilder();
 		List<Curso.Situacao> snapshots = new ArrayList<Curso.Situacao>();
 		
-		Disciplina disciplina =(Disciplina) app.produtoFactory.getProduto("123","Padrões Criacionais");
+		Disciplina disciplina =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"123","Padrões Criacionais");
 		disciplina.setCargaHoraria(10);
-		Disciplina disciplina2 =(Disciplina) app.produtoFactory.getProduto("321","Padrões Comportamentais");
+		Disciplina disciplina2 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"321","Padrões Comportamentais");
 		disciplina2.setCargaHoraria(10);
-		Disciplina disciplina3 =(Disciplina) app.produtoFactory.getProduto("213","Padrões Estruturais");
+		Disciplina disciplina3 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"213","Padrões Estruturais");
 		disciplina3.setCargaHoraria(10);
 		
 		builderCurso.setCodigo("123");
@@ -97,51 +73,4 @@ public class Aplicacao {
 		ementa.print();*/
 	}
 	
-	public static void testePrototypeSingleton() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-		
-		Aplicacao app = new Aplicacao();
-		CursoBuilder builderCurso = new CursoBuilder();
-		CatalogoCursos catalogo = CatalogoCursos.getCatalogo();
-		
-		Disciplina disciplina =(Disciplina) app.produtoFactory.getProduto("123","Padrões Criacionais");
-		disciplina.setCargaHoraria(10);
-		Disciplina disciplina2 =(Disciplina) app.produtoFactory.getProduto("321","Padrões Comportamentais");
-		disciplina2.setCargaHoraria(10);
-		Disciplina disciplina3 =(Disciplina) app.produtoFactory.getProduto("213","Padrões Estruturais");
-		disciplina3.setCargaHoraria(10);
-		
-		builderCurso.setCodigo("123");
-		builderCurso.setNome("Padrões de Projeto");
-		builderCurso.addDisciplinas(disciplina);
-		builderCurso.addDisciplinas(disciplina2);
-		builderCurso.addDisciplinas(disciplina3);
-		
-		Curso curso = builderCurso.build();
-		catalogo.addCurso(curso.prototipar());
-		CatalogoCursos catalogo2 = CatalogoCursos.getCatalogo();
-		CursoBuilder builderCurso2 = new CursoBuilder();
-		
-		Disciplina disciplina4 =(Disciplina) app.produtoFactory.getProduto("123","Padrões Criacionais");
-		disciplina4.setCargaHoraria(5);
-		Disciplina disciplina5 =(Disciplina) app.produtoFactory.getProduto("321","Padrões Comportamentais");
-		disciplina5.setCargaHoraria(5);
-		Disciplina disciplina6 =(Disciplina) app.produtoFactory.getProduto("213","Padrões Estruturais");
-		disciplina6.setCargaHoraria(5);
-		
-		builderCurso2.setCodigo("321");
-		builderCurso2.setNome("Padrões de Projeto 2");
-		builderCurso2.addDisciplinas(disciplina4);
-		builderCurso2.addDisciplinas(disciplina5);
-		builderCurso2.addDisciplinas(disciplina6);
-		
-		Curso curso2 = builderCurso2.build();
-		
-		
-		catalogo2.addCurso(curso2.prototipar());
-		
-		Curso cursoEncontrado =(Curso) catalogo2.getCurso("Padrões de Projeto");
-		System.out.println(cursoEncontrado.getChTotal());
-		
-	}
-
 }
