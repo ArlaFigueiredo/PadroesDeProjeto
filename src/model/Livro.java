@@ -1,3 +1,6 @@
+package model;
+
+import prototype.Prototipavel;
 
 public class Livro extends Produto implements ProdutoIF, Prototipavel{
 	

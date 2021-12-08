@@ -1,5 +1,16 @@
 import java.util.ArrayList;
 import java.util.List;
+import builder.CursoBuilder;
+import factory.ProdutoFactory;
+import model.Curso;
+import model.Disciplina;
+import model.Ementa;
+import model.ProdutoIF;
+import model.TipoProduto;
+import observer.CheckpointChangedEmail;
+import observer.CheckpointChangedLogger;
+import observer.CheckpointChangedSMS;
+import singleton.CatalogoCursos;
 
 public class Aplicacao {
 	
@@ -66,7 +77,7 @@ public class Aplicacao {
 		curso.avancar("Padrões Comportamentais", 0.30);
 		curso.avancar("Padrões Estruturais", 0.30);
 		
-		System.out.println(snapshots.get(0));
+		/*System.out.println(snapshots.get(0));
 		Ementa ementa = curso.buildEmenta();
 		System.out.println("Ementa: \n");
 		ementa.print();
@@ -78,7 +89,7 @@ public class Aplicacao {
 		ementa2.print();
 		
 		
-		/*Curso curso = builderCurso.build();
+		Curso curso = builderCurso.build();
 		Ementa ementa = curso.buildEmenta();
 		
 		System.out.println(curso.getDetalhes()+"\n");

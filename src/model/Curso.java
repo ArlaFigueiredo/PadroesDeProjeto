@@ -1,5 +1,11 @@
+package model;
+
 import java.util.ArrayList;
+import prototype.Prototipavel;
 import java.util.List;
+import observer.CheckpointChangedEvent;
+import observer.CheckpointObserver;
+
 
 public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	
@@ -10,7 +16,6 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 			private List<Livro> livros;
 			private List<Disciplina> disciplinas;
 			
-			//MEMENTO em um Memento
 			private Situacao(Curso curso, 
 							 List<Livro> livros,
 							 List<Disciplina> disciplinas) {
@@ -94,7 +99,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return novoCurso;
 	}
 
-	public Ementa buildEmenta() {
+	/*public Ementa buildEmenta() {
 		
 		EmentaBuilder builder = new EmentaBuilder();
 		for(Disciplina disciplina : this.disciplinas)
@@ -105,7 +110,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		builder.setNome(this.getNome());
 		Ementa ementa = builder.build();
 		return ementa;
-	}
+	}*/
 	
 	public double getPreco() {
 		return this.preco;

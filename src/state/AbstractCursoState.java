@@ -1,3 +1,6 @@
+package state;
+
+import model.Curso;
 
 public class AbstractCursoState implements CursoState{
 	
@@ -28,7 +31,7 @@ public class AbstractCursoState implements CursoState{
 	}
 	
 	@Override
-	public void avancar() {
+	public void avancar(String nomeDisciplina, double percentual) {
 		return;
 	}
 

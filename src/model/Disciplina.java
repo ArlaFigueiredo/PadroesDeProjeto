@@ -1,3 +1,6 @@
+package model;
+
+import prototype.Prototipavel;
 
 public class Disciplina extends Produto implements ProdutoIF, Prototipavel{
 	

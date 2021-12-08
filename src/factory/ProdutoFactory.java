@@ -1,3 +1,6 @@
+package factory;
+
+import model.ProdutoIF;
 
 public abstract class ProdutoFactory {
 	

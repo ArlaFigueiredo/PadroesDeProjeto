@@ -1,14 +1,19 @@
+package builder;
+
 import java.util.ArrayList;
 import java.util.List;
+import model.Livro;
+import model.Curso;
+import model.Disciplina;
 
-public class EmentaBuilder implements BuilderIF{
+public class CursoBuilder implements BuilderIF{
 
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
 	private String codigo;
 	private String nome;
 	
-	public EmentaBuilder() {
+	public CursoBuilder() {
 		this.livros = new ArrayList<Livro>();
 		this.disciplinas = new ArrayList<Disciplina>();
 	}
@@ -16,22 +21,21 @@ public class EmentaBuilder implements BuilderIF{
 	public void setNome(String nome){
 		this.nome = nome;
 	}
-
-	public void setCodigo(String codigo){
+	
+	public void setCodigo(String codigo) {
 		this.codigo = codigo;
 	}
-	
-	public void addLivros(Livro livro) {
+
+	public void addLivros(Livro livro){
 		this.livros.add(livro);
 	}
 	
 	public void addDisciplinas(Disciplina disciplina) {
 		this.disciplinas.add(disciplina);
 	}
-
-	public Ementa build() {
-		return new Ementa(this.codigo, this.nome,  this.disciplinas, this.livros);
+	
+	public Curso build() {
+		return new Curso(this.codigo, this.nome, this.livros, this.disciplinas);
 	}
 	
 }
-

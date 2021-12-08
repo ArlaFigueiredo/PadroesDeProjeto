@@ -1,3 +1,7 @@
+package state;
+
+import model.Curso;
+
 
 public interface CursoState {
 	

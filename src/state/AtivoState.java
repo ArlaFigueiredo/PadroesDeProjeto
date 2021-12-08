@@ -1,3 +1,5 @@
+package state;
+
 
 public class AtivoState extends AbstractCursoState implements CursoState{
 	

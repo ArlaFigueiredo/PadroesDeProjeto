@@ -1,3 +1,6 @@
+package model;
+
+import prototype.Prototipavel;
 
 public abstract class Produto implements ProdutoIF, Prototipavel{
 	

@@ -1,5 +1,10 @@
+package singleton;
+
 import java.util.ArrayList;
 import java.util.List;
+import model.Curso;
+import prototype.Prototipavel;
+
 
 public class CatalogoCursos {
 	

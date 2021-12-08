@@ -1,4 +1,7 @@
+package observer;
+
 import java.util.List;
+import model.Disciplina;
 
 public class CheckpointChangedEvent {
 	
