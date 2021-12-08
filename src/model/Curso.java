@@ -3,52 +3,44 @@ package model;
 import java.util.ArrayList;
 import prototype.Prototipavel;
 import java.util.List;
-import observer.CheckpointChangedEvent;
+import observer.CheckpointNotifyEvent;
 import observer.CheckpointObserver;
-
+import state.AtivoState;
+import state.CursoState;
 
 public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	
 	public class Situacao {
 			
-			private Curso curso;
+		private Curso curso;
+		private List<Livro> livros;
+		private List<Disciplina> disciplinas;
+		
+		private Situacao(Curso curso, 
+						 List<Livro> livros,
+						 List<Disciplina> disciplinas) {
 			
-			private List<Livro> livros;
-			private List<Disciplina> disciplinas;
+			this.curso = curso;
 			
-			private Situacao(Curso curso, 
-							 List<Livro> livros,
-							 List<Disciplina> disciplinas) {
-				
-				this.curso = curso;
-				
-				this.disciplinas = new ArrayList<Disciplina>();
-				for(Disciplina d : disciplinas)
-					this.disciplinas.add((Disciplina)d.prototipar());
-				this.livros = new ArrayList<Livro>();
-				for(Livro l : curso.livros)
-					this.livros.add((Livro)l.prototipar());
-			}
-			
-			private void restore() {
-				this.curso.setLivros(livros);
-				this.curso.setDisciplinas(disciplinas);
-			}
-			
-			public String toString() {
-				StringBuilder dadosDisciplinas = new StringBuilder();
-					dadosDisciplinas.append("Disciplina: ");
-					dadosDisciplinas.append(this.disciplinas);
-					dadosDisciplinas.append('\n');
-				return dadosDisciplinas.toString();
-			}
-		}	
+			this.disciplinas = new ArrayList<Disciplina>();
+			for(Disciplina d : disciplinas)
+				this.disciplinas.add((Disciplina)d.prototipar());
+			this.livros = new ArrayList<Livro>();
+			for(Livro l : curso.livros)
+				this.livros.add((Livro)l.prototipar());
+		}
+		
+		private void restore() {
+			this.curso.setLivros(livros);
+			this.curso.setDisciplinas(disciplinas);
+		}
+	}	
 	
 	
 	private List<CheckpointObserver> observers;
-	
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
+	private CursoState state;
 	
 	private Curso(Curso curso) {
 		super(curso);
@@ -58,12 +50,16 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		this.livros = new ArrayList<Livro>();
 		for(Livro l : curso.livros)
 			this.livros.add((Livro)l.prototipar());
+		this.observers = new ArrayList<CheckpointObserver>();
+		this.state = new AtivoState();
 	}
 	
 	public Curso(String codigo, String nome) {
 		super(codigo, nome);
 		this.disciplinas = new ArrayList<Disciplina>();
 		this.livros = new ArrayList<Livro>();
+		this.observers = new ArrayList<CheckpointObserver>();
+		this.state = new AtivoState();
 	}
 	
 	public Curso(String codigo, String nome, List<Livro> livros,List<Disciplina> disciplinas) {
@@ -71,6 +67,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		this.setLivros(livros);
 		this.setDisciplinas(disciplinas);
 		this.observers = new ArrayList<CheckpointObserver>();
+		this.state = new AtivoState();
 	}
 	
 	public List<Livro> getLivros() {
@@ -106,6 +103,10 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		
 		return pctCumprido/iCount;
 	}
+	
+	public double getPreco() {
+		return 0;
+	}
 
 	public Prototipavel prototipar() {
 		Curso novoCurso = new Curso(this);
@@ -114,18 +115,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return novoCurso;
 	}
 	
-	public double getPreco() {
-		return 0;
-	}
-
-	public void ajustarProduto(String codigo, String nome) {
-		this.setCodigo(codigo);
-		this.setNome(nome);
-		this.setLivros(null);
-		this.setDisciplinas(null);
-	}
-	
-	public String getDetalhes() {
+	public String toString() {
 		String detalhes =  "Nome: "+ this.getNome() 
 						+ "/ Codigo: "+ this.getCodigo();
 		return detalhes;
@@ -137,31 +127,32 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 				disciplina.setPercentualCumprido(percentual + disciplina.getPercentualCumprido());
 			}
 		}
+		
 	}
 	
 	public Situacao getCheckpoint() {
-		Situacao checkpoint = new Situacao(this, this.livros, 
-				this.disciplinas);
-		this.fireStateChangedEvent("SALVAMENTO", this.disciplinas);
-		
+		Situacao checkpoint = new Situacao(this, this.livros, this.disciplinas);
+		this.fireCheckpointEvent("OCORRENCIA", this.disciplinas);
 		return checkpoint;
+		//this.state.getCheckpoint(this);
 	}
 	
 	public void restore(Situacao snapshot) {
 		snapshot.restore();
-		this.fireStateChangedEvent("RESTAURAÇÃO", this.disciplinas);
+		this.fireCheckpointEvent("RESTAURAÇÃO", this.disciplinas);
+		//this.state.restore(snapshot);
 	}
 	
-	public void attachStateChangedObserver(CheckpointObserver observer) {
+	public void addObserver(CheckpointObserver observer) {
 		this.observers.add(observer); 
 	}
 	
-	public void detachStateChangedObserver(CheckpointObserver observer) {
-		this.observers.remove(observer); 
+	public void removeObserver(CheckpointObserver observer) {
+		this.observers.remove(observer);
 	}
 	
-	public void fireStateChangedEvent(String tipoCheckpoint, List<Disciplina> disciplinas) {
+	public void fireCheckpointEvent(String tipoCheckpoint, List<Disciplina> disciplinas) {
 		for(CheckpointObserver observer : this.observers)
-			observer.notifyStateChanged(new CheckpointChangedEvent(tipoCheckpoint, disciplinas));
+			observer.notifyCheckpoint(new CheckpointNotifyEvent(tipoCheckpoint, disciplinas));
 	}
 }

@@ -3,12 +3,12 @@ package observer;
 import java.util.List;
 import model.Disciplina;
 
-public class CheckpointChangedEvent {
+public class CheckpointNotifyEvent {
 	
 	private String tipoCheckpoint;
 	private List<Disciplina> disciplinas;
 	
-	public CheckpointChangedEvent(String tipoCheckpoint, List<Disciplina> disciplinas) {
+	public CheckpointNotifyEvent(String tipoCheckpoint, List<Disciplina> disciplinas) {
 		this.tipoCheckpoint = tipoCheckpoint;
 		this.disciplinas = disciplinas;
 	}
@@ -17,8 +17,8 @@ public class CheckpointChangedEvent {
 		return this.tipoCheckpoint;
 	}
 
-	public String getCHDisciplinas() {
-		return "Disciplinas";
+	public List<Disciplina> getCHDisciplinas() {
+		return this.disciplinas;
 	}
 
 }

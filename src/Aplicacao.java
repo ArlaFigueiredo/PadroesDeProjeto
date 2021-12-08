@@ -8,9 +8,9 @@ import model.Curso;
 import model.Disciplina;
 import model.Ementa;
 import model.ProdutoIF;
-import observer.CheckpointChangedEmail;
-import observer.CheckpointChangedLogger;
-import observer.CheckpointChangedSMS;
+import observer.CheckpointNotifyEmail;
+import observer.CheckpointNotifyLogger;
+import observer.CheckpointNotifySMS;
 import singleton.CatalogoCursos;
 
 public class Aplicacao {
@@ -39,9 +39,9 @@ public class Aplicacao {
 		builderCurso.addDisciplinas(disciplina3);
 		
 		Curso curso = builderCurso.build();
-		curso.attachStateChangedObserver(new CheckpointChangedLogger());
-		curso.attachStateChangedObserver(new CheckpointChangedSMS());
-		curso.attachStateChangedObserver(new CheckpointChangedEmail());
+		curso.addObserver(new CheckpointNotifyLogger());
+		curso.addObserver(new CheckpointNotifySMS());
+		curso.addObserver(new CheckpointNotifyEmail());
 		
 		curso.avancar("Padrões Criacionais", 0.20);
 		curso.avancar("Padrões Comportamentais", 0.50);
