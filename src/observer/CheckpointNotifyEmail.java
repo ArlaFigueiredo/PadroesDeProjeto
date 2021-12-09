@@ -9,6 +9,6 @@ public class CheckpointNotifyEmail implements CheckpointObserver{
 		SimpleDateFormat fd = new SimpleDateFormat("hh:mm:ss:SSSS");
 		String data = fd.format(new Date());
 		System.err.println("NOTIFY E-MAIL");
-		System.err.println("[" + data + "] " + "Um checkpoint de " + e.getTipoCheckpoint() + " foi efetuado. " + e.getCHDisciplinas());
+		System.err.println("[" + data + "] " + "A "+ e.getTipoCheckpoint() + " de um checkpoint foi efetuado. \n" + e.getCHDisciplinas());
 	}
 }

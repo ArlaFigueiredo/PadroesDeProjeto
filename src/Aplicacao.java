@@ -4,14 +4,11 @@ import java.util.List;
 import builder.CursoBuilder;
 import factory.ProdutoFactory;
 import factory.TipoProduto;
+import factory.TipoNotificacao;
+import memento.Situacao;
 import model.Curso;
 import model.Disciplina;
-import model.Ementa;
-import model.ProdutoIF;
-import observer.CheckpointNotifyEmail;
-import observer.CheckpointNotifyLogger;
-import observer.CheckpointNotifySMS;
-import singleton.CatalogoCursos;
+
 
 public class Aplicacao {
 	
@@ -23,25 +20,25 @@ public class Aplicacao {
 	public static void teste() throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		Aplicacao app = new Aplicacao();
 		CursoBuilder builderCurso = new CursoBuilder();
-		List<Curso.Situacao> snapshots = new ArrayList<Curso.Situacao>();
+		List<Situacao> snapshots = new ArrayList<Situacao>();
 		
-		Disciplina disciplina =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"123","Padrões Criacionais");
-		disciplina.setCargaHoraria(10);
-		Disciplina disciplina2 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"321","Padrões Comportamentais");
-		disciplina2.setCargaHoraria(10);
-		Disciplina disciplina3 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"213","Padrões Estruturais");
-		disciplina3.setCargaHoraria(10);
+		Disciplina disciplina1 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"1","Padrões Criacionais");
+		disciplina1.setCargaHoraria(10);
+		Disciplina disciplina2 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"2","Padrões Comportamentais");
+		disciplina2.setCargaHoraria(20);
+		Disciplina disciplina3 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"3","Padrões Estruturais");
+		disciplina3.setCargaHoraria(30);
 		
-		builderCurso.setCodigo("123");
+		builderCurso.setCodigo("10");
 		builderCurso.setNome("Padrões de Projeto");
-		builderCurso.addDisciplinas(disciplina);
+		builderCurso.addDisciplinas(disciplina1);
 		builderCurso.addDisciplinas(disciplina2);
 		builderCurso.addDisciplinas(disciplina3);
 		
 		Curso curso = builderCurso.build();
-		curso.addObserver(new CheckpointNotifyLogger());
-		curso.addObserver(new CheckpointNotifySMS());
-		curso.addObserver(new CheckpointNotifyEmail());
+		curso.addNotificacao(TipoNotificacao.EMAIL);
+		curso.addNotificacao(TipoNotificacao.SMS);
+		curso.addNotificacao(TipoNotificacao.LOGGER);
 		
 		curso.avancar("Padrões Criacionais", 0.20);
 		curso.avancar("Padrões Comportamentais", 0.50);
@@ -49,28 +46,23 @@ public class Aplicacao {
 		
 		snapshots.add(curso.getCheckpoint());
 		
-		curso.avancar("Padrões Criacionais", 0.30);
-		curso.avancar("Padrões Comportamentais", 0.30);
-		curso.avancar("Padrões Estruturais", 0.30);
+		System.out.println(curso.getPercentualCumpridoDisciplinas());
+		System.out.println(curso.getChCumprida());
 		
-		/*System.out.println(snapshots.get(0));
-		Ementa ementa = curso.buildEmenta();
-		System.out.println("Ementa: \n");
-		ementa.print();
+		curso.avancar("Padrões Criacionais", 0.50);
+		curso.avancar("Padrões Comportamentais", 0.40);
+		curso.avancar("Padrões Estruturais", 0.20);
 		
-		curso.restore(snapshots.get(0));
+		System.out.println(curso.getPercentualCumpridoDisciplinas());
+		System.out.println(curso.getChCumprida());
+		System.out.println(curso.getStatus());
 		
-		Ementa ementa2 = curso.buildEmenta();
-		System.out.println("Ementa: \n");
-		ementa2.print();
+		//curso.restore(snapshots.get(0));
+		curso.cancelar();
 		
-		
-		Curso curso = builderCurso.build();
-		Ementa ementa = curso.buildEmenta();
-		
-		System.out.println(curso.getDetalhes()+"\n");
-		System.out.println("Ementa: \n");
-		ementa.print();*/
+		System.out.println(curso.getPercentualCumpridoDisciplinas());
+		System.out.println(curso.getChCumprida());
+		System.out.println(curso.getStatus());
 	}
 	
 }

@@ -1,13 +1,20 @@
 package state;
 
+import memento.Situacao;
 import model.Curso;
+
 
 public class AbstractCursoState implements CursoState{
 	
 
 	@Override
-	public void restore(Curso.Situacao checkpoint) {
+	public void restore(Situacao checkpoint, Curso curso) {
 		return;
+	}
+	
+	@Override
+	public Situacao getCheckpoint(Curso curso) {
+		return null;
 	}
 
 	@Override
@@ -31,8 +38,13 @@ public class AbstractCursoState implements CursoState{
 	}
 	
 	@Override
-	public void avancar(String nomeDisciplina, double percentual) {
-		return;
+	public CursoState avancar(String nomeDisciplina, double percentual, Curso curso) {
+		return this;
+	}
+	
+	@Override
+	public String getStatus(){
+		return "";
 	}
 
 }

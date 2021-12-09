@@ -1,41 +1,19 @@
 package model;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import prototype.Prototipavel;
 import java.util.List;
+
+import factory.NotificacaoFactory;
+import factory.TipoNotificacao;
+import memento.Situacao;
 import observer.CheckpointNotifyEvent;
 import observer.CheckpointObserver;
 import state.AtivoState;
 import state.CursoState;
 
 public class Curso extends Produto implements ProdutoIF, Prototipavel{
-	
-	public class Situacao {
-			
-		private Curso curso;
-		private List<Livro> livros;
-		private List<Disciplina> disciplinas;
-		
-		private Situacao(Curso curso, 
-						 List<Livro> livros,
-						 List<Disciplina> disciplinas) {
-			
-			this.curso = curso;
-			
-			this.disciplinas = new ArrayList<Disciplina>();
-			for(Disciplina d : disciplinas)
-				this.disciplinas.add((Disciplina)d.prototipar());
-			this.livros = new ArrayList<Livro>();
-			for(Livro l : curso.livros)
-				this.livros.add((Livro)l.prototipar());
-		}
-		
-		private void restore() {
-			this.curso.setLivros(livros);
-			this.curso.setDisciplinas(disciplinas);
-		}
-	}	
-	
 	
 	private List<CheckpointObserver> observers;
 	private List<Livro> livros;
@@ -95,13 +73,18 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	}
 	
 	public double getChCumprida() {
-		int pctCumprido = 0;
+		double pctCumprido = 0;
 		int iCount = 0;
-		for(Disciplina disciplina : disciplinas)
+		for(Disciplina disciplina : disciplinas) {
             pctCumprido += disciplina.getPercentualCumprido();
 			iCount += 1;
+		}
 		
 		return pctCumprido/iCount;
+	}
+	
+	public boolean isCHCompleta() {
+		return this.getChCumprida() == 1.0;
 	}
 	
 	public double getPreco() {
@@ -121,38 +104,62 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return detalhes;
 	}
 	
-	public void avancar(String nomeDisciplina, double percentual) {
+	public String getPercentualCumpridoDisciplinas() {
+		StringBuilder pctCumpridoDisciplinas = new StringBuilder();
 		for(Disciplina disciplina : this.disciplinas) {
-			if(nomeDisciplina.equalsIgnoreCase(disciplina.getNome())){
-				disciplina.setPercentualCumprido(percentual + disciplina.getPercentualCumprido());
+			pctCumpridoDisciplinas.append(" Nome: ");
+			pctCumpridoDisciplinas.append(disciplina.getNome());
+			pctCumpridoDisciplinas.append(" Carga Horaria Cumprida: ");
+			pctCumpridoDisciplinas.append(disciplina.getPercentualCumprido());
+			pctCumpridoDisciplinas.append('\n');
 			}
-		}
-		
+		return pctCumpridoDisciplinas.toString();
+	}
+	
+	public void avancar(String nomeDisciplina, double percentual) {
+		this.state = this.state.avancar(nomeDisciplina, percentual, this);
 	}
 	
 	public Situacao getCheckpoint() {
-		Situacao checkpoint = new Situacao(this, this.livros, this.disciplinas);
-		this.fireCheckpointEvent("OCORRENCIA", this.disciplinas);
-		return checkpoint;
-		//this.state.getCheckpoint(this);
+		return this.state.getCheckpoint(this);
 	}
 	
 	public void restore(Situacao snapshot) {
-		snapshot.restore();
-		this.fireCheckpointEvent("RESTAURAÇÃO", this.disciplinas);
-		//this.state.restore(snapshot);
+		this.state.restore(snapshot, this);
 	}
 	
-	public void addObserver(CheckpointObserver observer) {
+	public void ativar() {
+		this.state = this.state.ativar();
+	}
+
+	public void cancelar() {
+		this.state = this.state.cancelar();
+	}
+	
+	public void suspender() {
+		this.state = this.state.suspender();
+	}
+
+	public void emitirCertificado() {
+		this.state.emitirCertificado();
+	}
+	
+	public String getStatus() {
+		return this.state.getStatus();
+	}
+	
+	public void addNotificacao(TipoNotificacao tipoNotificacao) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+		CheckpointObserver observer = NotificacaoFactory.getNotificacao(tipoNotificacao);
 		this.observers.add(observer); 
 	}
 	
-	public void removeObserver(CheckpointObserver observer) {
+	public void removeaddNotificacao(CheckpointObserver observer) {
 		this.observers.remove(observer);
 	}
 	
-	public void fireCheckpointEvent(String tipoCheckpoint, List<Disciplina> disciplinas) {
+	public void fireCheckpointEvent(String tipoCheckpoint, String disciplinas) {
 		for(CheckpointObserver observer : this.observers)
 			observer.notifyCheckpoint(new CheckpointNotifyEvent(tipoCheckpoint, disciplinas));
 	}
+	
 }

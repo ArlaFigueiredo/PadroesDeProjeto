@@ -53,6 +53,11 @@ public class Disciplina extends Produto implements ProdutoIF, Prototipavel{
 		this.pctCumprido = pctCumprido;
 	}
 	
+	public void registraAvanco(double pct) {
+		if(pct + this.getPercentualCumprido() <= 1)
+			this.setPercentualCumprido(pct + this.getPercentualCumprido());
+	}
+	
 	public void reset() {
 		this.setPercentualCumprido(0);
 	}
