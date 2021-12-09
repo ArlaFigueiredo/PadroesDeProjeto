@@ -2,8 +2,11 @@ package model;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import prototype.Prototipavel;
 import java.util.List;
+import java.util.Map;
 
 import factory.NotificacaoFactory;
 import factory.TipoNotificacao;
@@ -15,7 +18,7 @@ import state.CursoState;
 
 public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	
-	private List<CheckpointObserver> observers;
+	private Map<TipoNotificacao,CheckpointObserver> observers = new HashMap<TipoNotificacao,CheckpointObserver>();
 	private List<Livro> livros;
 	private List<Disciplina> disciplinas;
 	private CursoState state;
@@ -28,7 +31,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		this.livros = new ArrayList<Livro>();
 		for(Livro l : curso.livros)
 			this.livros.add((Livro)l.prototipar());
-		this.observers = new ArrayList<CheckpointObserver>();
+		this.observers = new HashMap<TipoNotificacao,CheckpointObserver>();
 		this.state = new AtivoState();
 	}
 	
@@ -36,7 +39,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		super(codigo, nome);
 		this.disciplinas = new ArrayList<Disciplina>();
 		this.livros = new ArrayList<Livro>();
-		this.observers = new ArrayList<CheckpointObserver>();
+		this.observers = new HashMap<TipoNotificacao,CheckpointObserver>();
 		this.state = new AtivoState();
 	}
 	
@@ -44,7 +47,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		super(codigo, nome);
 		this.setLivros(livros);
 		this.setDisciplinas(disciplinas);
-		this.observers = new ArrayList<CheckpointObserver>();
+		this.observers = new HashMap<TipoNotificacao,CheckpointObserver>();
 		this.state = new AtivoState();
 	}
 	
@@ -124,7 +127,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return this.state.getCheckpoint(this);
 	}
 	
-	public void restore(Situacao snapshot) {
+	public void restore(Situacao snapshot) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		this.state.restore(snapshot, this);
 	}
 	
@@ -148,18 +151,24 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return this.state.getStatus();
 	}
 	
+	public Map<TipoNotificacao,CheckpointObserver> getNotificacoesAtivas() {
+		return this.observers;
+	}
+	
 	public void addNotificacao(TipoNotificacao tipoNotificacao) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		CheckpointObserver observer = NotificacaoFactory.getNotificacao(tipoNotificacao);
-		this.observers.add(observer); 
+		this.observers.put(tipoNotificacao, observer); 
 	}
 	
-	public void removeaddNotificacao(CheckpointObserver observer) {
-		this.observers.remove(observer);
+	public void removeNotificacao(TipoNotificacao tipoNotificacao) {
+		this.observers.remove(tipoNotificacao);
 	}
 	
-	public void fireCheckpointEvent(String tipoCheckpoint, String disciplinas) {
-		for(CheckpointObserver observer : this.observers)
+	public void fireCheckpointEvent(String tipoCheckpoint, String disciplinas){
+		for(TipoNotificacao key : this.observers.keySet()) {
+			CheckpointObserver observer = this.observers.get(key);
 			observer.notifyCheckpoint(new CheckpointNotifyEvent(tipoCheckpoint, disciplinas));
+		}
 	}
 	
 }

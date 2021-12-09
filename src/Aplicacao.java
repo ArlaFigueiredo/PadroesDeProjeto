@@ -1,6 +1,8 @@
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
+
 import builder.CursoBuilder;
 import factory.ProdutoFactory;
 import factory.TipoProduto;
@@ -18,9 +20,10 @@ public class Aplicacao {
 	}
 	
 	public static void teste() throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
-		Aplicacao app = new Aplicacao();
+		
 		CursoBuilder builderCurso = new CursoBuilder();
-		List<Situacao> snapshots = new ArrayList<Situacao>();
+		// Historico de Checkpoints
+		Stack<Situacao> snapshots = new Stack<Situacao>();
 		
 		Disciplina disciplina1 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"1","Padrões Criacionais");
 		disciplina1.setCargaHoraria(10);
@@ -34,19 +37,26 @@ public class Aplicacao {
 		builderCurso.addDisciplinas(disciplina1);
 		builderCurso.addDisciplinas(disciplina2);
 		builderCurso.addDisciplinas(disciplina3);
-		
 		Curso curso = builderCurso.build();
-		curso.addNotificacao(TipoNotificacao.EMAIL);
+		
+		/*curso.addNotificacao(TipoNotificacao.EMAIL);
 		curso.addNotificacao(TipoNotificacao.SMS);
-		curso.addNotificacao(TipoNotificacao.LOGGER);
+		curso.addNotificacao(TipoNotificacao.WHATSAPP);
+		
+		System.out.println(curso.getNotificacoesAtivas());
+		
+		curso.removeNotificacao(TipoNotificacao.WHATSAPP);
+		System.out.println(curso.getNotificacoesAtivas());*/
+		
 		
 		curso.avancar("Padrões Criacionais", 0.20);
 		curso.avancar("Padrões Comportamentais", 0.50);
 		curso.avancar("Padrões Estruturais", 0.80);
 		
-		snapshots.add(curso.getCheckpoint());
+		snapshots.push(curso.getCheckpoint());
 		
 		System.out.println(curso.getPercentualCumpridoDisciplinas());
+		System.out.println("Percentual Cumprido Curso");
 		System.out.println(curso.getChCumprida());
 		
 		curso.avancar("Padrões Criacionais", 0.50);
@@ -54,15 +64,17 @@ public class Aplicacao {
 		curso.avancar("Padrões Estruturais", 0.20);
 		
 		System.out.println(curso.getPercentualCumpridoDisciplinas());
+		System.out.println("Percentual Cumprido Curso");
 		System.out.println(curso.getChCumprida());
-		System.out.println(curso.getStatus());
+		//System.out.println(curso.getStatus());
 		
-		//curso.restore(snapshots.get(0));
-		curso.cancelar();
+		curso.restore(snapshots.pop());
+		//curso.cancelar();
 		
 		System.out.println(curso.getPercentualCumpridoDisciplinas());
+		System.out.println("Percentual Cumprido Curso");
 		System.out.println(curso.getChCumprida());
-		System.out.println(curso.getStatus());
+		//System.out.println(curso.getStatus());
 	}
 	
 }

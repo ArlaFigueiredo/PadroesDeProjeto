@@ -5,7 +5,7 @@ public class ConcluidoState extends AbstractCursoState implements CursoState{
 	
 	@Override
 	public void emitirCertificado() {
-		System.out.println("Certificado de conclusao do this.curso ");
+		System.out.println("Certificado de conclusao de Curso");
 	}
 	
 	public String getStatus(){

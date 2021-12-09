@@ -1,5 +1,7 @@
 package state;
 
+import java.lang.reflect.InvocationTargetException;
+
 import memento.Situacao;
 import model.Curso;
 import model.Disciplina;
@@ -21,12 +23,12 @@ public class AtivoState extends AbstractCursoState implements CursoState{
 	
 	public Situacao getCheckpoint(Curso curso) {
 		
-		Situacao checkpoint = new Situacao(curso, curso.getLivros(), curso.getDisciplinas());
+		Situacao checkpoint = new Situacao(curso, curso.getLivros(), curso.getDisciplinas(), curso.getNotificacoesAtivas());
 		curso.fireCheckpointEvent("OCORRENCIA", curso.getPercentualCumpridoDisciplinas());
 		return checkpoint;
 	}
 	
-	public void restore(Situacao snapshot, Curso curso) {
+	public void restore(Situacao snapshot, Curso curso) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		snapshot.restore();
 		curso.fireCheckpointEvent("RESTAURAÇÃO", curso.getPercentualCumpridoDisciplinas());
 	}

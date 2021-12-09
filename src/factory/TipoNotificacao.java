@@ -1,7 +1,7 @@
 package factory;
 
 public enum TipoNotificacao {
-	LOGGER("factory.NotificacaoLoggerFactory"), 
+	WHATSAPP("factory.NotificacaoWhastappFactory"), 
 	EMAIL("factory.NotificacaoEmailFactory"),
 	SMS("factory.NotificacaoSMSFactory");
 	

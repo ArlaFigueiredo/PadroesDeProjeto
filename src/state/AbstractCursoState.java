@@ -1,5 +1,7 @@
 package state;
 
+import java.lang.reflect.InvocationTargetException;
+
 import memento.Situacao;
 import model.Curso;
 
@@ -8,7 +10,7 @@ public class AbstractCursoState implements CursoState{
 	
 
 	@Override
-	public void restore(Situacao checkpoint, Curso curso) {
+	public void restore(Situacao checkpoint, Curso curso) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
 		return;
 	}
 	
