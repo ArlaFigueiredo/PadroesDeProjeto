@@ -18,12 +18,12 @@ import state.CursoState;
 
 public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	
-	private Map<TipoNotificacao,CheckpointObserver> observers = new HashMap<TipoNotificacao,CheckpointObserver>();
-	private List<Livro> livros;
-	private List<Disciplina> disciplinas;
-	private CursoState state;
+	protected Map<TipoNotificacao,CheckpointObserver> observers = new HashMap<TipoNotificacao,CheckpointObserver>();
+	protected List<Livro> livros;
+	protected List<Disciplina> disciplinas;
+	protected CursoState state;
 	
-	private Curso(Curso curso) {
+	public Curso(Curso curso) {
 		super(curso);
 		this.disciplinas = new ArrayList<Disciplina>();
 		for(Disciplina d : curso.disciplinas)
@@ -91,7 +91,15 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	}
 	
 	public double getPreco() {
-		return 0;
+		double somaPrecosDisc = 0;
+		double somaPrecosLivr = 0;
+		for(Disciplina disciplina : this.disciplinas) {
+			somaPrecosDisc += disciplina.getPreco();
+		}
+		for(Livro livro : this.livros) {
+			somaPrecosLivr += livro.getPreco();
+		}
+		return somaPrecosDisc * 0.8 + somaPrecosLivr * 0.9;
 	}
 
 	public Prototipavel prototipar() {

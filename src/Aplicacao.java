@@ -39,14 +39,14 @@ public class Aplicacao {
 		builderCurso.addDisciplinas(disciplina3);
 		Curso curso = builderCurso.build();
 		
-		/*curso.addNotificacao(TipoNotificacao.EMAIL);
+		curso.addNotificacao(TipoNotificacao.EMAIL);
 		curso.addNotificacao(TipoNotificacao.SMS);
 		curso.addNotificacao(TipoNotificacao.WHATSAPP);
 		
 		System.out.println(curso.getNotificacoesAtivas());
 		
 		curso.removeNotificacao(TipoNotificacao.WHATSAPP);
-		System.out.println(curso.getNotificacoesAtivas());*/
+		System.out.println(curso.getNotificacoesAtivas());
 		
 		
 		curso.avancar("Padrões Criacionais", 0.20);
@@ -59,22 +59,22 @@ public class Aplicacao {
 		System.out.println("Percentual Cumprido Curso");
 		System.out.println(curso.getChCumprida());
 		
-		curso.avancar("Padrões Criacionais", 0.50);
-		curso.avancar("Padrões Comportamentais", 0.40);
+		curso.avancar("Padrões Criacionais", 0.80);
+		curso.avancar("Padrões Comportamentais", 0.50);
 		curso.avancar("Padrões Estruturais", 0.20);
 		
 		System.out.println(curso.getPercentualCumpridoDisciplinas());
 		System.out.println("Percentual Cumprido Curso");
 		System.out.println(curso.getChCumprida());
-		//System.out.println(curso.getStatus());
+		System.out.println(curso.getStatus());
 		
-		curso.restore(snapshots.pop());
+		//curso.restore(snapshots.pop());
 		//curso.cancelar();
 		
 		System.out.println(curso.getPercentualCumpridoDisciplinas());
 		System.out.println("Percentual Cumprido Curso");
 		System.out.println(curso.getChCumprida());
-		//System.out.println(curso.getStatus());
+		System.out.println(curso.getStatus());
 	}
 	
 }
