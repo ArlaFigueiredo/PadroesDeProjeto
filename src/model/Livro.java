@@ -4,7 +4,7 @@ import bridge.VersaoIF;
 import prototype.Prototipavel;
 
 
-public class Livro extends Produto implements ProdutoIF, Prototipavel{
+public class Livro extends Produto implements Prototipavel{
 	
 	private double preco;
 	private String isbn;

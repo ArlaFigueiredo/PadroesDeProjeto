@@ -1,9 +1,10 @@
 package model;
 
+import composite.ComponenteIF;
 import prototype.Prototipavel;
 
 
-public class Disciplina extends Produto implements ProdutoIF, Prototipavel{
+public class Disciplina extends Produto implements Prototipavel, ComponenteIF{
 	
 	private double preco;
 	private int chTotal;

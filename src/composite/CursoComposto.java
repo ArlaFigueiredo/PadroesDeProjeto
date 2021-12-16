@@ -1,101 +1,62 @@
 package composite;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import model.Produto;
 
-import factory.TipoNotificacao;
-import model.Curso;
-import model.Disciplina;
-import model.Livro;
-import model.ProdutoIF;
-import observer.CheckpointObserver;
-import prototype.Prototipavel;
-import state.AtivoState;
 
-public class CursoComposto extends Curso implements ProdutoIF, Prototipavel{
+public class CursoComposto extends Produto implements ComponenteIF{
 	
-	private List<Curso> cursos;
+	private List<ComponenteIF> componentes;
 	
-	
-	private CursoComposto(CursoComposto curso) {
-		super(curso);
-		for(Curso c : curso.cursos)
-			this.cursos.add((Curso)c.prototipar());
+	public CursoComposto(CursoComposto cursoComposto) {
+		super(cursoComposto);
+		this.componentes = new ArrayList<ComponenteIF>();
 	}
 	
 	public CursoComposto(String codigo, String nome) {
 		super(codigo, nome);
-		this.disciplinas = new ArrayList<Disciplina>();
-		this.livros = new ArrayList<Livro>();
-		this.cursos = new ArrayList<Curso>();
-		this.observers = new HashMap<TipoNotificacao,CheckpointObserver>();
-		this.state = new AtivoState();
+		this.componentes = new ArrayList<ComponenteIF>();
 	}
 	
-	public CursoComposto(String codigo, String nome, List<Livro> livros,List<Disciplina> disciplinas, List<Curso> cursos) {
-		super(codigo, nome, livros, disciplinas);
-		this.cursos = cursos;
+	public void addComponente(ComponenteIF comp) {
+		this.componentes.add(comp);
 	}
 	
-	public void addCurso(Curso curso) {
-		this.cursos.add(curso);
+	public List<ComponenteIF> getComponentes() {
+		return this.componentes;
 	}
 	
-	public List<Curso> getCursos() {
-		return this.cursos;
-	}
-
-	public void setCursos(List<Curso> cursos) {
-		this.cursos = new ArrayList<Curso>(cursos);
-	}
-	
-	@Override
-	public int getChTotal() {
+	public int getCargaHoraria() {
 		int CHTotal = 0;
-		for(Disciplina disciplina : this.disciplinas)
-			CHTotal += disciplina.getCargaHoraria();
-		for(Curso curso : this.cursos)
-			CHTotal += curso.getChTotal();
+		for(ComponenteIF comp : this.componentes)
+			CHTotal += comp.getCargaHoraria();
 		
 		return CHTotal;
 	}
 	
-	@Override
-	public double getChCumprida() {
+	public double getPercentualCumprido() {
 		double pctCumprido = 0;
 		int iCount = 0;
-		for(Disciplina disciplina : disciplinas) {
-            pctCumprido += disciplina.getPercentualCumprido();
+		for(ComponenteIF comp : this.componentes) {
+            pctCumprido += comp.getPercentualCumprido();
 			iCount += 1;
 		}
-		for(Curso curso : this.cursos)
-			pctCumprido += curso.getChCumprida();
-			iCount += 1;
 		
 		return pctCumprido/iCount;
 	}
 	
-	@Override
 	public double getPreco() {
-		double somaPrecosDisc = 0;
-		double somaPrecosLivr = 0;
-		double somaPrecosCur = 0;
-		for(Curso curso : this.cursos)
-			somaPrecosCur += curso.getPreco();
-		for(Disciplina disciplina : this.disciplinas)
-			somaPrecosDisc += disciplina.getPreco();
-		for(Livro livro : this.livros)
-			somaPrecosLivr += livro.getPreco();
+		double somaPrecos = 0;
+		for(ComponenteIF comp : this.componentes)
+			somaPrecos += comp.getPreco();
 
-		return (somaPrecosDisc + somaPrecosCur) * 0.8 + somaPrecosLivr * 0.9;
+		return somaPrecos * 0.8;
 	}
 	
-	public Prototipavel prototipar() {
-		CursoComposto novoCurso = new CursoComposto(this);
-		for(Disciplina disciplina : novoCurso.disciplinas)
-            disciplina.reset();
-		return novoCurso;
+	public String toString() {
+		String detalhes =  "Nome: "+ this.getNome() 
+						+ "/ Codigo: "+ this.getCodigo();
+		return detalhes;
 	}
-
 }

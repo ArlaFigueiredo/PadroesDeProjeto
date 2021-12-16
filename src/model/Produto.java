@@ -1,8 +1,6 @@
 package model;
 
-import prototype.Prototipavel;
-
-public abstract class Produto implements ProdutoIF, Prototipavel{
+public abstract class Produto{
 	
 	private String codigo;
 	private String nome;

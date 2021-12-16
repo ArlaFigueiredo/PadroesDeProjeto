@@ -8,6 +8,7 @@ import prototype.Prototipavel;
 import java.util.List;
 import java.util.Map;
 
+import composite.ComponenteIF;
 import factory.NotificacaoFactory;
 import factory.TipoNotificacao;
 import memento.Situacao;
@@ -16,7 +17,7 @@ import observer.CheckpointObserver;
 import state.AtivoState;
 import state.CursoState;
 
-public class Curso extends Produto implements ProdutoIF, Prototipavel{
+public class Curso extends Produto implements Prototipavel, ComponenteIF{
 	
 	protected Map<TipoNotificacao,CheckpointObserver> observers = new HashMap<TipoNotificacao,CheckpointObserver>();
 	protected List<Livro> livros;
@@ -67,7 +68,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		this.disciplinas = new ArrayList<Disciplina>(disciplinas);
 	}
 
-	public int getChTotal() {
+	public int getCargaHoraria() {
 		int CHTotal = 0;
 		for(Disciplina disciplina : disciplinas)
 			CHTotal += disciplina.getCargaHoraria();
@@ -75,7 +76,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		return CHTotal;
 	}
 	
-	public double getChCumprida() {
+	public double getPercentualCumprido() {
 		double pctCumprido = 0;
 		int iCount = 0;
 		for(Disciplina disciplina : disciplinas) {
@@ -87,7 +88,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 	}
 	
 	public boolean isCHCompleta() {
-		return this.getChCumprida() == 1.0;
+		return this.getPercentualCumprido() == 1.0;
 	}
 	
 	public double getPreco() {
@@ -99,7 +100,7 @@ public class Curso extends Produto implements ProdutoIF, Prototipavel{
 		for(Livro livro : this.livros) {
 			somaPrecosLivr += livro.getPreco();
 		}
-		return somaPrecosDisc * 0.8 + somaPrecosLivr * 0.9;
+		return ((somaPrecosDisc * 0.8) + (somaPrecosLivr * 0.9));
 	}
 
 	public Prototipavel prototipar() {
