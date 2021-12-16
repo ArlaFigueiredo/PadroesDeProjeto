@@ -3,6 +3,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import bridge.Basico;
+import bridge.CapaDura;
+import bridge.Colorido;
+import bridge.Digital;
+import bridge.VersaoIF;
 import builder.CursoBuilder;
 import factory.ProdutoFactory;
 import factory.TipoProduto;
@@ -10,6 +15,7 @@ import factory.TipoNotificacao;
 import memento.Situacao;
 import model.Curso;
 import model.Disciplina;
+import model.Livro;
 
 
 public class Aplicacao {
@@ -21,6 +27,7 @@ public class Aplicacao {
 	
 	public static void teste() throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
 		
+		/*
 		CursoBuilder builderCurso = new CursoBuilder();
 		// Historico de Checkpoints
 		Stack<Situacao> snapshots = new Stack<Situacao>();
@@ -75,6 +82,20 @@ public class Aplicacao {
 		System.out.println("Percentual Cumprido Curso");
 		System.out.println(curso.getChCumprida());
 		System.out.println(curso.getStatus());
+		*/
+		
+		
+		
+		
+		VersaoIF versao = new Colorido();
+		Livro livro =(Livro) ProdutoFactory.getProduto(TipoProduto.LIVRO,"3","Padrões Estruturais");
+		livro.setVersao(versao);
+		livro.setPreco(30.00);
+		System.out.println(livro.getPreco());
+		
+		
+		
+		
 	}
 	
 }

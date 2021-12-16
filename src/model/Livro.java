@@ -41,7 +41,7 @@ public class Livro extends Produto implements ProdutoIF, Prototipavel{
 	}
 	
 	public double getPreco() {
-		return this.preco;
+		return this.versao.calculaPreco(this.preco);
 	}
 	
 	public String getIsbn() {
