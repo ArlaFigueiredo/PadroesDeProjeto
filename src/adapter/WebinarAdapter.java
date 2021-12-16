@@ -9,12 +9,10 @@ public class WebinarAdapter extends Disciplina implements ComponenteIF{
 	
 	public WebinarAdapter(String codigo, String nome) {
 		super(codigo, nome);
-		this.webinar = null;
 	}
 	
 	public WebinarAdapter(WebinarAdapter webinarAdapter) {
 		super(webinarAdapter);
-		this.webinar = null;
 	}
 	
 	public WebinarAdapter(String id, String title, String hoster, double price, long minutes) {
