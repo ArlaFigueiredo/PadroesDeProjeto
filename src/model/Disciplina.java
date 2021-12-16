@@ -21,15 +21,6 @@ public class Disciplina extends Produto implements Prototipavel, ComponenteIF{
 		super(codigo, nome);
 	}
 	
-	public Disciplina(String codigo, String nome, 
-					  int chTotal,
-					  double pctCumprido, double preco) {
-		super(codigo, nome);
-		this.setCargaHoraria(chTotal);
-		this.setPercentualCumprido(pctCumprido);
-		this.setPreco(preco);
-	}
-	
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}

@@ -4,7 +4,6 @@ public class Digital implements VersaoIF {
 	
 	private final static double percentualReajuste = 0.85;
 	
-	@Override
 	public double calculaPreco(double preco) {
 		return preco *= percentualReajuste;
 	}

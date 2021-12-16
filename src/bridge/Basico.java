@@ -2,9 +2,10 @@ package bridge;
 
 public class Basico implements VersaoIF{
 	
-	@Override
+	private final static double percentualReajuste = 1;
+	
 	public double calculaPreco(double preco) {
-		return preco;
+		return preco *= percentualReajuste;
 	}
 	
 	public String toString() {

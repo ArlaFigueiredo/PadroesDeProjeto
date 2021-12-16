@@ -1,5 +1,6 @@
 package model;
 
+import bridge.Basico;
 import bridge.VersaoIF;
 import prototype.Prototipavel;
 
@@ -14,10 +15,12 @@ public class Livro extends Produto implements Prototipavel{
 		super(livro);
 		this.setIsbn(livro.getIsbn());
 		this.setPreco(livro.getPreco());
+		this.setVersao(new Basico());
 	}
 	
 	public Livro(String codigo, String nome) {
 		super(codigo, nome);
+		this.setVersao(new Basico());
 	}
 	
 	public Livro(String codigo, String nome, 
@@ -26,10 +29,11 @@ public class Livro extends Produto implements Prototipavel{
 		super(codigo, nome);
 		this.setIsbn(isbn);
 		this.setPreco(preco);
+		this.setVersao(new Basico());
 	}	
 	
-	public VersaoIF getVersao() {
-		return versao;
+	public String getVersao() {
+		return versao.toString();
 	}
 
 	public void setVersao(VersaoIF versao) {

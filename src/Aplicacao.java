@@ -3,12 +3,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
+import adapter.WebinarAdapter;
 import bridge.Basico;
 import bridge.CapaDura;
 import bridge.Colorido;
 import bridge.Digital;
 import bridge.VersaoIF;
 import builder.CursoBuilder;
+import composite.ComponenteIF;
 import composite.CursoComposto;
 import factory.ProdutoFactory;
 import factory.TipoProduto;
@@ -81,6 +83,7 @@ public class Aplicacao {
 		*/
 		
 		
+		// SEGUNDA QUESTAO 
 		/*
 		VersaoIF versao = new Colorido();
 		Livro livro =(Livro) ProdutoFactory.getProduto(TipoProduto.LIVRO,"3","Padrões Estruturais");
@@ -88,8 +91,32 @@ public class Aplicacao {
 		livro.setPreco(30.00);
 		System.out.println(livro.getPreco());
 		*/
-
 		
+		// TERCEIRA QUESTAO 
+		
+		/*
+		CursoBuilder builderCurso = new CursoBuilder();
+		
+		Disciplina disciplina1 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"1","Padrões Criacionais Java");
+		disciplina1.setCargaHoraria(10);
+		disciplina1.setPreco(30);
+		Disciplina disciplina2 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"2","Padrões Comportamentais Java");
+		disciplina2.setCargaHoraria(20);
+		disciplina2.setPreco(40);
+		Disciplina disciplina3 =(Disciplina) ProdutoFactory.getProduto(TipoProduto.DISCIPLINA,"3","Padrões Estruturais Java");
+		disciplina3.setCargaHoraria(30);
+		disciplina3.setPreco(50);
+		Disciplina webinarAdapt = (Disciplina) new WebinarAdapter("0085", "BUILDER NA PRÁTICA", "MANOEL NETO", 60.0, 30);
+		
+		builderCurso.setCodigo("10");
+		builderCurso.setNome("Padrões de Projeto Java");
+		builderCurso.addDisciplinas(disciplina1);
+		builderCurso.addDisciplinas(disciplina2);
+		builderCurso.addDisciplinas(disciplina3);
+		builderCurso.addDisciplinas(webinarAdapt);
+		Curso curso = builderCurso.build();
+		System.out.println(curso.getPercentualCumpridoDisciplinas());
+		*/
 	}
 	
 }
